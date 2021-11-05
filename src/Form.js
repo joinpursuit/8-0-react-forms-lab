@@ -13,7 +13,7 @@ class Form extends React.Component {
           <option value="average">average</option>
           <option value="mode">mode</option>
         </select>
-        <button onClick={this.props.clearText} type="submit">Calculate</button>
+        <button onClick={this.props.afterSubmit} type="submit">Calculate</button>
       </form>
     );
   }
