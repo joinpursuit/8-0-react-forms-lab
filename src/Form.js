@@ -28,7 +28,7 @@ export default class Form extends React.Component {
   };
   constructor(props) {
     super(props);
-    this.state = { operation: null, input: '' };
+    this.state = { operation: '', input: '', isValid: true };
     this.changeOperation = this.changeOperation.bind(this);
     this.changeInput = this.changeInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,6 +38,7 @@ export default class Form extends React.Component {
     evt.preventDefault();
     const regex = /^[0-9]+(,[0-9]+)*$/;
     if (!regex.test(this.state.input)) {
+      this.setState({ isValid: false });
       this.props.getResult('Invalid input.');
       return;
     }
@@ -46,6 +47,7 @@ export default class Form extends React.Component {
       this.state.input.split(',')
     );
     this.props.getResult(result);
+    this.setState({ operation: '', input: '', isValid: true });
   }
 
   changeOperation(evt) {
@@ -62,12 +64,19 @@ export default class Form extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <input
           id="values"
+          className={!this.state.isValid ? 'error' : ''}
           name="input"
           type="text"
           onChange={this.changeInput}
           value={this.state.input}
         />
-        <select id="operation" name="operation" onChange={this.changeOperation}>
+        <select
+          id="operation"
+          className={!this.state.isValid ? 'error' : ''}
+          name="operation"
+          onChange={this.changeOperation}
+          value={this.state.operation}
+        >
           <option value=""></option>
           <option value="sum" name="sum">
             sum
