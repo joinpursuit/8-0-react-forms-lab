@@ -11,6 +11,7 @@ class Form extends React.Component {
       inputArray: [],
     };
   }
+
   update = (event) => {
     let value = event.target.value;
     this.setState({
@@ -27,43 +28,75 @@ class Form extends React.Component {
 
   functions = (event) => {
     event.preventDefault();
-    switch (this.state.function) {
-      case "sum":
-        this.setState({
-          result: this.state.inputArray.reduce((a, b) => a + b),
-        });
-        break;
-      case "average":
-        this.setState({
-          result:
-            this.state.inputArray.reduce((a, b) => a + b) /
-            this.state.inputArray.length,
-        });
-        break;
-      case "mode":
-        let mode = [];
-        let numbers = {};
-        this.state.inputArray.forEach((num) =>
-          numbers[num] ? (numbers[num] += 1) : (numbers[num] = 1)
-        );
-        let max = 0;
+    let numCheck = true;
+    let inputs = document.querySelector("input");
+    let selector = document.querySelector("select");
+    this.state.inputArray.forEach((num) => {
+      if (isNaN(num)) {
+        numCheck = false;
+      }
+    });
+    if (numCheck) {
+      switch (this.state.function) {
+        case "sum":
+          this.setState({
+            result: this.state.inputArray.reduce((a, b) => a + b),
+          });
+          inputs.value = "";
+          selector.value = "";
+          selector.classList.remove("error");
+          inputs.classList.remove("error");
+          break;
+        case "average":
+          this.setState({
+            result:
+              this.state.inputArray.reduce((a, b) => a + b) /
+              this.state.inputArray.length,
+          });
+          inputs.value = "";
+          selector.value = "";
+          selector.classList.remove("error");
+          inputs.classList.remove("error");
 
-        for (const num in numbers) {
-          if (Number(numbers[num]) > max) {
-            max = Number(numbers[num]);
-            mode = [num];
-          } else if (Number(numbers[num]) === max) {
-            mode.push(num);
+          break;
+        case "mode":
+          let mode = [];
+          let numbers = {};
+          this.state.inputArray.forEach((num) =>
+            numbers[num] ? (numbers[num] += 1) : (numbers[num] = 1)
+          );
+          let max = 0;
+
+          for (const num in numbers) {
+            if (Number(numbers[num]) > max) {
+              max = Number(numbers[num]);
+              mode = [num];
+            } else if (Number(numbers[num]) === max) {
+              mode.push(num);
+            }
           }
-        }
-        this.setState({
-          result: mode.join(),
-        });
-        break;
-      default:
-        this.setState({
-          result: "Invalid input.",
-        });
+          this.setState({
+            result: mode.join(),
+          });
+          inputs.value = "";
+          selector.value = "";
+          selector.classList.remove("error");
+          inputs.classList.remove("error");
+
+          break;
+        default:
+          this.setState({
+            result: "Invalid input.",
+          });
+          selector.classList.add("error");
+          inputs.classList.add("error");
+      }
+    } else {
+      this.setState({
+        result: "Invalid input.",
+      });
+      selector.classList.add("error");
+      inputs.classList.add("error");
     }
   };
 
