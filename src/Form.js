@@ -7,7 +7,7 @@ class Form extends React.Component {
   }
   render() {
     return (
-      <form>
+      <form onSubmit={this.props.handleSubmit}>
         <input
           id="values"
           name="values"
