@@ -1,12 +1,24 @@
-import React from "react";
-import "./Form.css";
+import React from 'react';
+import './Form.css';
 
 class Form extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <form>
-        <input id="values" name="values" type="text" />
-        <select id="operation" name="operation">
+        <input
+          id="values"
+          name="values"
+          type="text"
+          onChange={this.props.handleForm}
+        />
+        <select
+          id="operation"
+          name="operation"
+          onChange={this.props.handleForm}
+        >
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>
