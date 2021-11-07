@@ -6,64 +6,45 @@ class App extends React.Component {
   constructor(){
     super()
     this.state = {
-      operation: '',
       result: '',
     }
   }
 
-  onUserSubmit = (event) => {
-    event.preventDefault()
+  calculate = (arr, operation) => {
+    if(!arr.join('').length || arr.join('').match(/[^\d]/g)){
+      this.setState({result: 'Invalid input.'})
+    } else {
+      switch(operation) {
+        case 'sum':
+          this.setState({result: arr.reduce((a, b) => a + b)})
+        break;
+        case 'average':
+          this.setState({result: arr.reduce((a, b) => a + b)/arr.length})
+        break;
+        case 'mode':
+          const obj = {}
+          arr.forEach(el => obj[el] = ++obj[el] || 1)
 
-    if(!event.target.values.value.length || event.target.values.value.match(/[a-z]/)){
-      this.setState({result: "Invalid input."})
-    } else if (this.state.operation === "sum"){
-      this.addition(event.target.values.value)
-    } else if (this.state.operation === "average"){
-      this.findAverage(event.target.values.value)
-    } else if (this.state.operation === "mode"){
-      this.getMode(event.target.values.value)
-    }
-
-    this.setState({operation: ''})
-    event.target.reset()
-  }
-
-  addition = (string) => {
-    this.setState({result: string.split(',').reduce((a, b)=> Number(a) + Number(b))})
-  }
-
-  findAverage = (string) => {
-    const length = string.split(',').length
-    console.log(length)
-    this.setState({result: (string.split(',').reduce((a, b) => Number(a) + Number(b)))/length})
-  }
-
-  getMode = (string) => {
-    const obj = {
-
-    }
-    string.split(',').forEach(element => obj[element] = Number(obj[element]) + 1 || 1)
-
-    let most;
-    let lastNum = 0
-
-    for(const key in obj){
-      if(obj[key] > lastNum){
-        most = key
-        lastNum = obj[key]
+          let mode;
+          for(const key in obj){
+            if(obj[key] > obj[mode] || !obj[mode]){
+              mode = key
+            }
+          }
+          this.setState({result: mode})
+        break;
+        default:
+          this.setState({result: 'Invalid input.'})
       }
     }
-
-    console.log(obj)
-    console.log(most)
-    this.setState({result: most})
   }
+
 
   render() {
     return (
       <main>
         <p>Enter each number in the array, separated by a ','</p>
-        <Form fun={this}/>
+        <Form calculate={this.calculate}/>
         <section id="result">
           <p>{this.state.result}</p>
         </section>
