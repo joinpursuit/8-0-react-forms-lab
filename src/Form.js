@@ -2,17 +2,51 @@ import React from "react";
 import "./Form.css";
 
 class Form extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      userInput: "",
+      dropdown: "",
+    };
+  }
+/* STATE --- 2. THE OPERATIONS - WHICH OPERATION ARE WE DOING... SHOULD LIVE IN THE FORM
+3. THE VALUES - WHICH VALUES ARE WE WORKING WITH, THE CONTENTS OF USER INPUT...SHOULD LIVE IN THE FORM */
+  handleButtonClick = (event) => {
+    event.preventDefault();
+    this.props.calculateButton(this.state.userInput, this.state.dropdown);
+  };
+  handleInputChange = (event) => {
+    this.setState({
+      userInput: event.target.value,
+    });
+  };
+  handleDropdown = (event) => {
+    this.setState({
+      dropdown: event.target.value,
+    });
+  };
+/* METHODS --- 2. FORM: - BUTTON HANDLER THAT PREVENTS DEFAULT, SEND DATA... SOMEWHERE 
+- USER INPUT HANDLER
+- DROPDOWN MENU HANDLER */
   render() {
     return (
       <form>
-        <input id="values" name="values" type="text" />
-        <select id="operation" name="operation">
+        <input
+          id="values"
+          name="values"
+          type="text"
+          value={this.state.userInput}
+          onChange={this.handleInputChange}
+        />
+        <select id="operation" name="operation" onChange={this.handleDropdown}>
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>
           <option value="mode">mode</option>
         </select>
-        <button type="submit">Calculate</button>
+        <button onClick={this.handleButtonClick} type="submit">
+          Calculate
+        </button>
       </form>
     );
   }
