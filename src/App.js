@@ -10,8 +10,8 @@ class App extends React.Component {
     }
   }
 
-  calculate = (arr, operation) => {
-    if(!arr.join('').length || arr.join('').match(/[^\d]/g)){
+  calculate = (arr, operation, isValid) => {
+    if(!isValid){
       this.setState({result: 'Invalid input.'})
     } else {
       switch(operation) {

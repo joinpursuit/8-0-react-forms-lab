@@ -7,13 +7,31 @@ class Form extends React.Component {
     this.state = {
       userInput: '',
       operation: '',
+      className: ''
     }
   }
 
   onFormSubmit = (event) => {
     event.preventDefault()
+
     const arr = this.state.userInput ? this.state.userInput.split(',').map(el => 1*el) : []
-    this.props.calculate(arr, this.state.operation)
+
+    let isValid = true
+    let className;
+
+    if(!arr.join('').length || arr.join('').match(/[^\d]/g) || !this.state.operation){
+      isValid = false
+      this.setState({className: 'error'})
+    }
+
+    console.log(this.state.userInput)
+    console.log(isValid)
+    this.props.calculate(arr, this.state.operation, isValid)
+    if(isValid){
+      this.setState({userInput: ''})
+      this.setState({className: ''})
+      event.target.reset()
+    }
   }
 
   onOperationChange = (event) => {
@@ -27,8 +45,8 @@ class Form extends React.Component {
   render() {
     return (
       <form onSubmit={this.onFormSubmit}>
-        <input id="values" name="values" type="text" onChange={this.onUserInputChange}/>
-        <select id="operation" name="operation" onChange={this.onOperationChange}>
+        <input className={this.state.className} id="values" name="values" type="text" onChange={this.onUserInputChange}/>
+        <select className={this.state.className} id="operation" name="operation" onChange={this.onOperationChange}>
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>
