@@ -3,6 +3,7 @@ import Form from "./Components/Form";
 import Sum from "./Components/Sum"
 import "./App.css";
 import Average from "./Components/Average";
+import Mode from "./Components/Mode";
 
 
 class App extends React.Component {
@@ -25,16 +26,7 @@ class App extends React.Component {
           this.setState({result: <Average array={arr}/>})
         break;
         case 'mode':
-          const obj = {}
-          arr.forEach(el => obj[el] = ++obj[el] || 1)
-
-          let mode;
-          for(const key in obj){
-            if(obj[key] > obj[mode] || !obj[mode]){
-              mode = key
-            }
-          }
-          this.setState({result: mode})
+          this.setState({result: <Mode array={arr}/>})
         break;
         default:
           this.setState({result: 'Invalid input.'})
@@ -44,7 +36,6 @@ class App extends React.Component {
 
 
   render() {
-    // console.log(this.state.result)
     return (
       <main>
         <p>Enter each number in the array, separated by a ','</p>

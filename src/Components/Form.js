@@ -41,8 +41,6 @@ class Form extends React.Component {
   }
   
   render() {
-    console.log(this.state.operation)
-    console.log(this.state.userInput)
     return (
       <form onSubmit={this.onFormSubmit}>
         <input className={this.state.className} id="values" name="values" type="text" onInput={this.onUserInputChange}/>
