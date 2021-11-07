@@ -1,6 +1,9 @@
 import React from "react";
-import Form from "./Form";
+import Form from "./Components/Form";
+import Sum from "./Components/Sum"
 import "./App.css";
+import Average from "./Components/Average";
+
 
 class App extends React.Component {
   constructor(){
@@ -16,10 +19,10 @@ class App extends React.Component {
     } else {
       switch(operation) {
         case 'sum':
-          this.setState({result: arr.reduce((a, b) => a + b)})
+          this.setState({result: <Sum array={arr}/>})
         break;
         case 'average':
-          this.setState({result: arr.reduce((a, b) => a + b)/arr.length})
+          this.setState({result: <Average array={arr}/>})
         break;
         case 'mode':
           const obj = {}
@@ -41,6 +44,7 @@ class App extends React.Component {
 
 
   render() {
+    // console.log(this.state.result)
     return (
       <main>
         <p>Enter each number in the array, separated by a ','</p>

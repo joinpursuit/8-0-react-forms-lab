@@ -1,5 +1,5 @@
 import React from "react";
-import "./Form.css";
+import "../Form.css";
 
 class Form extends React.Component {
   constructor(){
@@ -17,18 +17,16 @@ class Form extends React.Component {
     const arr = this.state.userInput ? this.state.userInput.split(',').map(el => 1*el) : []
 
     let isValid = true
-    let className;
 
     if(!arr.join('').length || arr.join('').match(/[^\d]/g) || !this.state.operation){
       isValid = false
       this.setState({className: 'error'})
     }
 
-    console.log(this.state.userInput)
-    console.log(isValid)
     this.props.calculate(arr, this.state.operation, isValid)
     if(isValid){
       this.setState({userInput: ''})
+      this.setState({operation: ''})
       this.setState({className: ''})
       event.target.reset()
     }
@@ -43,9 +41,11 @@ class Form extends React.Component {
   }
   
   render() {
+    console.log(this.state.operation)
+    console.log(this.state.userInput)
     return (
       <form onSubmit={this.onFormSubmit}>
-        <input className={this.state.className} id="values" name="values" type="text" onChange={this.onUserInputChange}/>
+        <input className={this.state.className} id="values" name="values" type="text" onInput={this.onUserInputChange}/>
         <select className={this.state.className} id="operation" name="operation" onChange={this.onOperationChange}>
           <option value=""></option>
           <option value="sum">sum</option>
