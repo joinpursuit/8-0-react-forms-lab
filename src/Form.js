@@ -1,11 +1,12 @@
 import React from "react";
 import "./Form.css";
 
-class Form extends React.Component {
+class Form extends React.Component { //use this.props for classes
   render() {
+    // console.log(this.state.userInput)
     return (
-      <form>
-        <input id="values" name="values" type="text" />
+      <form onSubmit={this.props.handleSubmit}>
+        <input id="values" name="values" type="text" onChange={this.handleInput}/> 
         <select id="operation" name="operation">
           <option value=""></option>
           <option value="sum">sum</option>
@@ -19,3 +20,7 @@ class Form extends React.Component {
 }
 
 export default Form;
+// onChange={this.handleOperation}
+
+//line 8: whenever you're submitting, give the form the valued of handleSubmit
+
