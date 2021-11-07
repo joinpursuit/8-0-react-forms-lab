@@ -18,7 +18,7 @@ class Form extends React.Component {
 
     let isValid = true
 
-    if(!arr.join('').length || arr.join('').match(/[^\d]/g) || !this.state.operation){
+    if((!arr.join('').length || arr.join('').match(/[^\d]/g) || !this.state.operation) && true){
       isValid = false
       this.setState({className: 'error'})
     }
@@ -36,17 +36,18 @@ class Form extends React.Component {
     this.setState({operation: event.target.value})
   }
 
-  onUserInputChange = (event) => {
+  onUserInput = (event) => {
     this.setState({userInput: event.target.value})
   }
   
   render() {
     return (
       <form onSubmit={this.onFormSubmit}>
-        <input className={this.state.className} id="values" name="values" type="text" onInput={this.onUserInputChange}/>
+        <input className={this.state.className} placeholder="ex. 1,2,3" id="values" name="values" type="text" onInput={this.onUserInput}/>
         <select className={this.state.className} id="operation" name="operation" onChange={this.onOperationChange}>
           <option value=""></option>
           <option value="sum">sum</option>
+          <option value="difference">difference</option>
           <option value="average">average</option>
           <option value="mode">mode</option>
         </select>

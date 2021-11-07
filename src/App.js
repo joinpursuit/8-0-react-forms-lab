@@ -4,6 +4,7 @@ import Sum from "./Components/Sum"
 import "./App.css";
 import Average from "./Components/Average";
 import Mode from "./Components/Mode";
+import Difference from "./Components/Difference";
 
 
 class App extends React.Component {
@@ -22,6 +23,9 @@ class App extends React.Component {
         case 'sum':
           this.setState({result: <Sum array={arr}/>})
         break;
+        case 'difference':
+          this.setState({result: <Difference array={arr}/>})
+        break;
         case 'average':
           this.setState({result: <Average array={arr}/>})
         break;
@@ -29,7 +33,7 @@ class App extends React.Component {
           this.setState({result: <Mode array={arr}/>})
         break;
         default:
-          this.setState({result: 'Invalid input.'})
+        break;
       }
     }
   }
