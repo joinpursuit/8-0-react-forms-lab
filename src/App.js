@@ -17,3 +17,28 @@ class App extends React.Component {
 }
 
 export default App;
+/*
+Form:
+  handles submission
+    prevent default
+    send data
+    input check
+    transform data
+  handle text input
+  handle dropdown
+app:
+  one or multiple calculate methods
+*/
+
+/* to pass values up
+app:
+method = () => {}
+<form afterSubmit={this.method}/> 
+*/
+
+/* to pass values up
+form:
+handleinput = (event) => {
+  this.props.afterSubmit(event.target.value)
+}
+*/
