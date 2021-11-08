@@ -3,7 +3,6 @@ import Form from "./Form";
 import "./App.css";
 
 let isInvalid = true
-const modeList = []
 
 class App extends React.Component {
   constructor() {
@@ -15,12 +14,12 @@ class App extends React.Component {
       errorClass: ""
     }
   }
-
+  
   handleInput = (event) => {
     this.setState({
       userInput: event.target.value,
     })
-      
+    
     isInvalid = event.target.value === "" || event.target.value.split(",").some((element) => Number.isNaN(Number(element))) 
   }
   
@@ -47,18 +46,18 @@ class App extends React.Component {
       }
       if (this.state.operation === "average") {
         this.setState({
-          result: this.state.userInput.split(",").length / this.state.userInput.split(",").reduce((previousNum, currNum) => Number(previousNum) + Number(currNum)),
+          result: this.state.userInput.split(",").reduce((previousNum, currNum) => Number(previousNum) + Number(currNum)) / this.state.userInput.split(",").length,
           errorClass: ""
         })
       }
       if (this.state.operation === "mode") {
+        const modeList = {}
         this.state.userInput.split(",").forEach((element) => {
           modeList[element] = (modeList[element] || 0) + 1 
         })
         const mode = Object.entries(modeList).reduce((prevValue, currValue) => {
           return (prevValue[1] - currValue[1] ? currValue[0] : prevValue[0])
         })
-
         this.setState({
           result: mode,
           errorClass: ""
