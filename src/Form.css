@@ -3,3 +3,28 @@ select.error {
   border: 1px solid red;
   outline: none !important;
 }
+
+form{
+  background-color: rgb(55, 73, 55);
+  margin: 0 300px;
+  border-radius: 1em;
+}
+
+#values{
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 1em;
+}
+
+main{
+  margin-top: 55px;
+  background-color: rgb(99, 96, 61);
+  box-shadow: 
+  0 0 0 10px darkolivegreen,
+  0 0 0 20px rgb(68, 47, 107),
+  0 0 0 30px rgb(47, 107, 57),
+  0 0 0 40px rgb(121, 86, 33),
+  0 0 0 50px rgb(4, 6, 0);
+  border-radius: 1em;
+  
+}
