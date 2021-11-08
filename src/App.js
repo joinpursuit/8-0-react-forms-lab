@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "./Components/Form";
-import Sum from "./Components/Sum"
 import "./App.css";
+import Sum from "./Components/Sum"
 import Average from "./Components/Average";
 import Mode from "./Components/Mode";
 import Difference from "./Components/Difference";
@@ -33,6 +33,7 @@ class App extends React.Component {
           this.setState({result: <Mode array={arr}/>})
         break;
         default:
+          this.setState({result: `${operation} is under construction..`})
         break;
       }
     }

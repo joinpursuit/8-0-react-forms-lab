@@ -14,20 +14,14 @@ class Form extends React.Component {
   onFormSubmit = (event) => {
     event.preventDefault()
 
-    const arr = this.state.userInput ? this.state.userInput.split(',').map(el => 1*el) : []
+    const arr = this.state.userInput.trim() ? this.state.userInput.split(',').map(Number) : []
 
-    let isValid = true
-
-    if((!arr.join('').length || arr.join('').match(/[^\d]/g) || !this.state.operation) && true){
-      isValid = false
+    if(!arr.join('').length || arr.join('').match(/[^\d]/g) || !this.state.operation){
+      this.props.calculate([], "", false)
       this.setState({className: 'error'})
-    }
-
-    this.props.calculate(arr, this.state.operation, isValid)
-    if(isValid){
-      this.setState({userInput: ''})
-      this.setState({operation: ''})
-      this.setState({className: ''})
+    } else{
+      this.props.calculate(arr, this.state.operation, true)
+      this.setState({userInput: '', operation: '', className: ''})
       event.target.reset()
     }
   }
@@ -43,11 +37,23 @@ class Form extends React.Component {
   render() {
     return (
       <form onSubmit={this.onFormSubmit}>
-        <input className={this.state.className} placeholder="ex. 1,2,3" id="values" name="values" type="text" onInput={this.onUserInput}/>
-        <select className={this.state.className} id="operation" name="operation" onChange={this.onOperationChange}>
+        <input 
+        className={this.state.className} 
+        placeholder="ex 1,2,3" id="values" 
+        name="values" type="text" 
+        onInput={this.onUserInput}
+        />
+        
+        <select 
+        id="operation" 
+        name="operation" 
+        className={this.state.className} 
+        onChange={this.onOperationChange}
+        >
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="difference">difference</option>
+          <option value="simplify">simplify</option>
           <option value="average">average</option>
           <option value="mode">mode</option>
         </select>
