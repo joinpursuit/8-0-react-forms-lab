@@ -12,9 +12,9 @@ constructor(){
 
 getResult = (userInput, operation) =>{
    const number = userInput.split(',').map(str => (Number(str)))
-   console.log(Number.isNaN(userInput))
-  if(userInput === "" || operation === "" || isNaN(userInput)){
-   
+  
+  if(userInput === "" || operation === ""){
+    // || !(Number.isNaN(userInput))
 this.setState({
   result: 'Invalid input.'
 })
