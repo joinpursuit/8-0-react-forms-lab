@@ -14,11 +14,13 @@ Using React, build a form that will dynamically take in text and perform a mathe
 
 1. Navigate to the cloned repository's directory on your command line. Then, run the following command:
 
-   ```
-   npm install
-   ```
+---
 
-   This will install the libraries needed to run the tests.
+```
+npm install
+```
+
+This will install the libraries needed to run the tests.
 
 1. Open up the repository in VSCode. Follow the instructions below to complete the Lab.
 
