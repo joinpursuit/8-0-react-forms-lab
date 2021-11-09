@@ -5,15 +5,15 @@ class Form extends React.Component { //use this.props for classes
   render() {
     // console.log(this.state.userInput)
     return (
-      <form onSubmit={this.props.handleSubmit}>
-        <input id="values" name="values" type="text" onChange={this.handleInput}/> 
-        <select id="operation" name="operation">
+      <form onSubmit={this.props.handleSubmit} onChange={this.props.handleOperations}>
+        <input id="values" name="values" type="text" onChange={this.props.handleInput}/> 
+        <select onChange={this.props.handleOperations} id="operation" name="operation">
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>
           <option value="mode">mode</option>
         </select>
-        <button type="submit">Calculate</button>
+        <button onClick={this.props.handleSubmit} type="submit">Calculate</button>
       </form>
     );
   }

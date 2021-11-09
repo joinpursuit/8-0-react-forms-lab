@@ -1,69 +1,93 @@
 import React from "react";
-import Form from "./Form"; //app is a parent of form
+import Form from "./Form";
 import "./App.css";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      userInput: '',
-      operation: '',
-      result: '',
+      userInput: "",
+      operation: "",
+      result: "",
     };
   }
-  //user input
+
   handleInput = (event) => {
+    console.log(
+      event.target.value
+        .split(",")
+        .map((el) => Number(el))
+        .filter((el) => !isNaN(el))
+    );
     this.setState({
-      userInput: event.target.value, //
-    })
+      userInput: event.target.value,
+    });
+  };
+
+  handleOperations = (event) => {
+    event.preventDefault();
     
-  }
-  
-  //add separate method to handle operations
-  handleOperations= (event) => {
     this.setState({
-      operation: event.target.value
-    })
-  }
-  //form submission
+      operation: event.target.value,
+    });
+  };
+
+  sum = (arr) => arr.reduce((rV, cV) => rV + cV, 0);
+
+  average = (arr) => this.sum(arr) / arr.length;
+
+  mode = (arr) => {
+    let modeObj = arr.reduce(
+      (rV, cV) => ({ ...rV, [cV]: rV[cV] ? rV[cV] + 1 : 1 }),
+      {}
+    );
+    let highestCount = [];
+
+    for (let key in modeObj) {
+      console.log(key, modeObj[key]);
+      if (!highestCount.length) {
+        highestCount = [key, modeObj[key]];
+      }
+      if (modeObj[key] > highestCount[1]) {
+        highestCount = [key, modeObj[key]];
+      }
+    }
+    return highestCount[0];
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
-    const invalidInput = this.state.userInput === '' || this.state.userInput.split(",").some((element) => isNaN(element));
-    //invalid input if the value is empty or if it's not a number...
+    //store invalid input in variable for better readability
+    const invalidInput =
+      this.state.userInput === "" ||
+      this.state.userInput.split(",").some((el) => isNaN(el));
+
     if (invalidInput) {
       this.setState({
         result: "Invalid input.",
-      })
-    } 
+      });
+    } else {
+      this.setState({
+        result: this[this.state.operation](
+          this.state.userInput
+            .split(",")
+            .map((el) => Number(el))
+            .filter((el) => !isNaN(el))
+        ),
+      });
+    }
   };
-  //checking for invalid inputs.//
-
-  // handleOperations = (event) => {
-  //   if(this.state.operation === 'sum') {
-  //     this.setState({
-  //       userInput: event.target.value,
-  //       result: this.state.userInput.split(",").reduce((prevValue, currValue) => prevValue + currValue)
-  //     })
-  // //     this.state.userInput.reduce()
-  // //   } else if (this.state.operation === 'average') {
-  // //     this.setState({
-  // //       // userInput: event.target.value,
-  // //       // result: emojify(event.target.value),
-  // //     })
-  // //   } else if (this.state.operation === 'mode') {
-  // //     this.setState({
-  // //       userInput: event.target.value,
-  // //       result: event.target.value,
-  // //     })
-  //   }
-    
-  // }
 
   render() {
     return (
       <main>
         <p>Enter each number in the array, separated by a ','</p>
-        <Form handleInput={this.handleInput} handleOperations={this.handleOperations} handleSubmit={this.handleSubmit}/>
+        <Form
+          handleInput={this.handleInput}
+          handleOperations={this.handleOperations}
+          handleSubmit={this.handleSubmit}
+          operation={this.state.operation}
+        />
         <section id="result">
           <p>{this.state.result}</p>
         </section>
@@ -71,6 +95,5 @@ class App extends React.Component {
     );
   }
 }
-//added props to form
 
 export default App;
