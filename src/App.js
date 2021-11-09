@@ -2,10 +2,6 @@ import React from "react";
 import Form from "./Form";
 import "./App.css";
 
-//Set up global variable or a variable that can be accessed throughout the parent component 
-//Can set it up like this or via STATE
-let isInvalid = true
-
 class App extends React.Component {
   //Set up constructor and state for parent component
   constructor() {
@@ -23,8 +19,6 @@ class App extends React.Component {
     this.setState({
       userInput: event.target.value,
     })
-    
-    isInvalid = event.target.value === "" || event.target.value.split(",").some((element) => Number.isNaN(Number(element))) //> use .some to determine if some or any of the inputs are invalid or NaN
   }
   
   handleOperationChange = (event) => {
@@ -38,8 +32,8 @@ class App extends React.Component {
     //Stop the page from automatically refreshing
     event.preventDefault();
     
-    //Guard clause
-    if (isInvalid) {
+    //Guard clause if input is invalid
+    if (this.state.userInput === "" || this.state.userInput.split(",").some((element) => Number.isNaN(Number(element)))) {
       this.setState({
         result: "Invalid input.",
         errorClass: "error"
@@ -72,7 +66,8 @@ class App extends React.Component {
           errorClass: ""
         })
       }
-      //After determining valid input and calculation, access the parentNode to reset the form tag to clear both input and selection tags
+      //After determining valid input and calculation, access the parentNode to reset the form tag to clear both input and selection tags 
+      //OR manually clear the values via STATE using tag names and values to set the STATE
       event.target.parentNode.reset();
     }
   }
