@@ -5,8 +5,9 @@ class Form extends React.Component {
   constructor(){
     super()
     this.state = {
-      userInput: '',
+      values: '',
       operation: '',
+      valuesArr: [],
       className: ''
     }
   }
@@ -14,24 +15,21 @@ class Form extends React.Component {
   onFormSubmit = (event) => {
     event.preventDefault()
 
-    const arr = this.state.userInput.trim() ? this.state.userInput.split(',').map(Number) : []
+    const { values, operation, valuesArr} = this.state
 
-    if(!arr.join('').length || arr.join('').match(/[^\d]/g) || !this.state.operation){
+    if(!values.length || (/[^\d,]/g).test(values) || !operation.length){
       this.props.calculate([], "", false)
       this.setState({className: 'error'})
     } else{
-      this.props.calculate(arr, this.state.operation, true)
-      this.setState({userInput: '', operation: '', className: ''})
+      this.props.calculate(valuesArr, operation, true)
+      this.setState({values: '', operation: '', className: ''})
       event.target.reset()
     }
   }
 
-  onOperationChange = (event) => {
-    this.setState({operation: event.target.value})
-  }
 
-  onUserInput = (event) => {
-    this.setState({userInput: event.target.value})
+  onUserInputChange = (event) => {
+    this.setState({[event.target.name]: event.target.value, valuesArr: this.state.values.split(',').map(Number)})
   }
   
   render() {
@@ -41,14 +39,14 @@ class Form extends React.Component {
         className={this.state.className} 
         placeholder="ex 1,2,3" id="values" 
         name="values" type="text" 
-        onInput={this.onUserInput}
+        onInput={this.onUserInputChange}
         />
 
         <select 
         id="operation" 
         name="operation" 
         className={this.state.className} 
-        onChange={this.onOperationChange}
+        onChange={this.onUserInputChange}
         >
           <option value=""></option>
           <option value="sum">sum</option>
