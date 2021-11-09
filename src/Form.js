@@ -2,17 +2,19 @@ import React from "react";
 import "./Form.css";
 
 class Form extends React.Component {
+
   render() {
+
     return (
-      <form>
-        <input id="values" name="values" type="text" />
-        <select id="operation" name="operation">
+      <form onSubmit = {this.props.cal}>
+        <input id="values" name="values" type="text" onChange = {this.props.handleInput} />
+        <select id="operation" name="operation" onChange = {this.props.handleFeature}>
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>
           <option value="mode">mode</option>
         </select>
-        <button type="submit">Calculate</button>
+        <button onClick ={this.props.isValid} type="submit">Calculate</button>
       </form>
     );
   }
