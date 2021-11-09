@@ -43,7 +43,7 @@ class Form extends React.Component {
         name="values" type="text" 
         onInput={this.onUserInput}
         />
-        
+
         <select 
         id="operation" 
         name="operation" 

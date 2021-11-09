@@ -2,17 +2,12 @@ import React from 'react'
 
 export default class Mode extends React.Component {
     calMode = () => {
-        const obj = {}
-        const arr = this.props.array
-        arr.forEach(el => obj[el] = ++obj[el] || 1)
+        const obj = this.props.array.reduce((obj, cVal) => {
+            obj[cVal] = ++obj[cVal] || 1
+            return obj
+        }, {})
 
-        let mode;
-        for(const key in obj){
-        if(obj[key] > obj[mode] || !obj[mode]){
-            mode = key
-        }
-        }
-        return mode
+         return Object.keys(obj).reduce((a,b) => obj[a] > obj[b] ? a : b)
 
     }
     render(){
