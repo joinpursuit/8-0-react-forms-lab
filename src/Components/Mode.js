@@ -11,6 +11,6 @@ export default class Mode extends React.Component {
 
     }
     render(){
-        return <span>{this.calMode()}</span>
+        return this.calMode()
     }
 }

@@ -6,12 +6,17 @@ import Average from "./Components/Average";
 import Mode from "./Components/Mode";
 import Difference from "./Components/Difference";
 
-
 class App extends React.Component {
   constructor(){
     super()
     this.state = {
       result: '',
+    }
+    this.components = {
+      Sum,
+      Average,
+      Mode,
+      Difference,
     }
   }
 
@@ -19,23 +24,8 @@ class App extends React.Component {
     if(!isValid){
       this.setState({result: 'Invalid input.'})
     } else {
-      switch(operation) {
-        case 'sum':
-          this.setState({result: <Sum array={arr}/>})
-        break;
-        case 'difference':
-          this.setState({result: <Difference array={arr}/>})
-        break;
-        case 'average':
-          this.setState({result: <Average array={arr}/>})
-        break;
-        case 'mode':
-          this.setState({result: <Mode array={arr}/>})
-        break;
-        default:
-          this.setState({result: `${operation} is under construction..`})
-        break;
-      }
+      const Component = this.components[operation[0].toUpperCase() + operation.slice(1)]
+      this.setState({result: <Component array={arr}/>})
     }
   }
 

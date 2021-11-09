@@ -7,7 +7,6 @@ class Form extends React.Component {
     this.state = {
       values: '',
       operation: '',
-      valuesArr: [],
       className: ''
     }
   }
@@ -15,7 +14,9 @@ class Form extends React.Component {
   onFormSubmit = (event) => {
     event.preventDefault()
 
-    const { values, operation, valuesArr} = this.state
+    const valuesArr = this.state.values.split(',').map(Number)
+
+    const { values, operation } = this.state
 
     if(!values.length || (/[^\d,]/g).test(values) || !operation.length){
       this.props.calculate([], "", false)
@@ -29,7 +30,7 @@ class Form extends React.Component {
 
 
   onUserInputChange = (event) => {
-    this.setState({[event.target.name]: event.target.value, valuesArr: this.state.values.split(',').map(Number)})
+    this.setState({[event.target.name]: event.target.value})
   }
   
   render() {
