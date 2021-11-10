@@ -3,17 +3,19 @@ import Form from "./Form";
 import "./App.css";
 
 class App extends React.Component {
-  constructor(){
-    super();
-  }
+  // constructor(){
+  //   super();
+  // }
 
   render() {
     return (
       <main>
         <p>Enter each number in the array, separated by a ','</p>
         <Form />
-        <section id="result">
-          <p>Result Hector</p>
+        <section
+          id="result"
+        >
+          <p>Result {this.props.result}</p>
         </section>
       </main>
     );

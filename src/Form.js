@@ -8,13 +8,22 @@ class Form extends React.Component {
     this.state = {
       userInput: '',
       operation: '',
-      result: '',
     }
   }
 
   handleFormSubmit=(event) => {
     event.preventDefault();
     console.log(event)
+
+    let { userInput, operation, result } = this.state;
+
+    // if (userInput && operation && result) {
+    //   alert(
+    //     `Form submitted! \n ${userInput} \n ${operation} \n ${result}`
+    //   )
+    // } else {
+    //   alert("Please fill out the form completely")
+    // }
   }
 
   handleUserInput=(event) => {
@@ -26,10 +35,25 @@ class Form extends React.Component {
   handleOperationChange=(event) => {
     this.setState({
       operation: event.target.value,
+      result: '',
     })
   }
 
+  /*
+    `calculatesResult` contain all possible operations:
+      - sum
+      - average
+      - mode
+    if statement that calls back operation change
+    if user picks `sum`, operation picks that `sum` result
+  */
+  calculatesResult=() => {
+    
+  }
+
   render() {
+    console.log(this.state);
+
     return (
       <form onSubmit={this.handleFormSubmit} className="form-container">
         <input 
@@ -50,7 +74,7 @@ class Form extends React.Component {
           <option value="average">average</option>
           <option value="mode">mode</option>
         </select>
-        <button type="submit">Calculate</button>
+        <button onClick={this.calculatesResult} type="submit">Calculate</button>
       </form>
     );
   }
