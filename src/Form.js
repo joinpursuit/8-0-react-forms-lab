@@ -19,7 +19,13 @@ class Form extends React.Component {
 
   handleUserInput=(event) => {
     this.setState({
-      userInput: event.target.values,
+      userInput: event.target.value,
+    })
+  }
+
+  handleOperationChange=(event) => {
+    this.setState({
+      operation: event.target.value,
     })
   }
 
@@ -33,7 +39,12 @@ class Form extends React.Component {
           value={this.state.userInput}
           onChange={this.handleUserInput}
         />
-        <select id="operation" name="operation">
+        <select
+          id="operation"
+          name="operation"
+          value={this.state.operation}
+          onChange={this.handleOperationChange}
+        >
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>
