@@ -28,10 +28,22 @@ class Form extends React.Component {
   }
 
   calculateResult = () => {
-    
+    let sum = this.handleOperationChange === "sum";
+    let average = this.handleOperationChange === "average";
+    let mode = this.handleOperationChange === "mode";
+
+    switch(this.handleOperationChange){
+      case sum:
+        break;
+      case average:
+        break;
+      case mode:
+        break;
+      default:
+        "Invalid Input."
+    }
   }
   
-  }
   render() {
     return (
       <form onSubmit={this.handleFormSubmit} className="form-container">
