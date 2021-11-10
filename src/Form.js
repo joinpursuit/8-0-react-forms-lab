@@ -3,18 +3,24 @@ import "./Form.css";
 
 class Form extends React.Component {
   constructor() {
+    /* STATE --- 2. THE OPERATIONS - WHICH OPERATION ARE WE DOING... SHOULD LIVE IN THE FORM
+    3. THE VALUES - WHICH VALUES ARE WE WORKING WITH, THE CONTENTS OF USER INPUT...SHOULD LIVE IN THE FORM */
     super();
     this.state = {
       userInput: "",
       dropdown: "",
     };
   }
-/* STATE --- 2. THE OPERATIONS - WHICH OPERATION ARE WE DOING... SHOULD LIVE IN THE FORM
-3. THE VALUES - WHICH VALUES ARE WE WORKING WITH, THE CONTENTS OF USER INPUT...SHOULD LIVE IN THE FORM */
+
   handleButtonClick = (event) => {
     event.preventDefault();
     this.props.calculateButton(this.state.userInput, this.state.dropdown);
+    this.setState({
+      userInput: "",
+      dropdown: "",
+    });
   };
+
   handleInputChange = (event) => {
     this.setState({
       userInput: event.target.value,
@@ -25,7 +31,7 @@ class Form extends React.Component {
       dropdown: event.target.value,
     });
   };
-/* METHODS --- 2. FORM: - BUTTON HANDLER THAT PREVENTS DEFAULT, SEND DATA... SOMEWHERE 
+  /* METHODS --- 2. FORM: - BUTTON HANDLER THAT PREVENTS DEFAULT, SEND DATA... SOMEWHERE 
 - USER INPUT HANDLER
 - DROPDOWN MENU HANDLER */
   render() {
@@ -38,7 +44,12 @@ class Form extends React.Component {
           value={this.state.userInput}
           onChange={this.handleInputChange}
         />
-        <select id="operation" name="operation" onChange={this.handleDropdown}>
+        <select
+          id="operation"
+          name="operation"
+          onChange={this.handleDropdown}
+          value={this.state.dropdown}
+        >
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>
