@@ -9,7 +9,7 @@ class App extends React.Component {
         <p>Enter each number in the array, separated by a ','</p>
         <Form />
         <section id="result">
-          <p>Result Christina</p>
+          <p>{this,props.result}</p>
         </section>
       </main>
     );

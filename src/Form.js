@@ -6,8 +6,7 @@ class Form extends React.Component {
     super();
     this.state = {
       userInput: "",
-      operation: "",
-      result: ""
+      operation: ""
     }
   }
 
@@ -27,6 +26,12 @@ class Form extends React.Component {
       operation: event.target.value
     })
   }
+
+  calculateResult = () => {
+    
+  }
+  
+  }
   render() {
     return (
       <form onSubmit={this.handleFormSubmit} className="form-container">
@@ -38,7 +43,7 @@ class Form extends React.Component {
           <option value="average">average</option>
           <option value="mode">mode</option>
         </select>
-        <button type="submit">Calculate</button>
+        <button type="submit" onClick={this.calculateResult}>Calculate</button>
       </form>
     );
   }
