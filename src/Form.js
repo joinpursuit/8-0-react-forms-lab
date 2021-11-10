@@ -48,7 +48,23 @@ class Form extends React.Component {
     if user picks `sum`, operation picks that `sum` result
   */
   calculatesResult=() => {
-    
+    let sum = this.handleOperationChange === 'sum';
+    let average = this.handleOperationChange === 'average';
+    let mode = this.handleOperationChange === 'mode';
+
+    switch(this.handleOperationChange) {
+      case sum:
+        console.log(`sum operation picked`)
+        break;
+      case average:
+        console.log(`average operation picked`)
+        break;
+      case mode:
+        console.log(`mode operation picked`)
+        break;
+      default:
+        console.log(`Invalid operation.`);
+    }
   }
 
   render() {
