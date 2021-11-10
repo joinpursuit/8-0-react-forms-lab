@@ -15,10 +15,17 @@ class Form extends React.Component {
     event.preventDefault();
     console.log(event)
   }
+
+  handleUserInput = (event) => {
+    this.setState({
+      userInput: event.target.values
+    });
+  }
   render() {
     return (
       <form onSubmit={this.handleFormSubmit} className="form-container">
-        <input id="values" name="values" type="text" />
+        <input id="values" name="values" type="text" value={this.state.userInput}
+              onChange={this.handleUserInput} />
         <select id="operation" name="operation">
           <option value=""></option>
           <option value="sum">sum</option>
