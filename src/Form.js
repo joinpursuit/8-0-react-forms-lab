@@ -62,6 +62,7 @@ class Form extends React.Component {
           this.setState({
             errorClass: "error"
           });
+          this.props.afterSubmit("Invalid input.")
       }
       //After determining valid input and calculation, access the parentNode to reset the form tag to clear both input and selection tags 
       //OR manually clear the values via STATE using tag names and values to set the STATE
