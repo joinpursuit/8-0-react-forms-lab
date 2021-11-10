@@ -12,18 +12,28 @@ class Form extends React.Component {
   }
 
   handleFormSubmit=(event) => {
+    const { userInput, operation } = this.state;
     event.preventDefault();
-    console.log(event)
+    // console.log(event)
 
-    let { userInput, operation, result } = this.state;
+    console.log("user input:", userInput)
+    console.log("the operation:", operation)
 
-    // if (userInput && operation && result) {
-    //   alert(
-    //     `Form submitted! \n ${userInput} \n ${operation} \n ${result}`
-    //   )
-    // } else {
-    //   alert("Please fill out the form completely")
-    // }
+    if (operation === "sum") {
+      console.log("hello sum")
+      this.setState({
+        result: 'hector result rae'
+      })
+      
+    } else if (operation === "average") {
+      console.log("find average")
+    } else if (operation === "mode") {
+      console.log("find the mode")
+    } else if (operation === "") {
+      this.setState({
+        userInput: `Invalid input.`,
+      })
+    }
   }
 
   handleUserInput=(event) => {
@@ -48,23 +58,7 @@ class Form extends React.Component {
     if user picks `sum`, operation picks that `sum` result
   */
   calculatesResult=() => {
-    let sum = this.handleOperationChange === 'sum';
-    let average = this.handleOperationChange === 'average';
-    let mode = this.handleOperationChange === 'mode';
-
-    switch(this.handleOperationChange) {
-      case sum:
-        console.log(`sum operation picked`)
-        break;
-      case average:
-        console.log(`average operation picked`)
-        break;
-      case mode:
-        console.log(`mode operation picked`)
-        break;
-      default:
-        console.log(`Invalid operation.`);
-    }
+    // calculate here
   }
 
   render() {
@@ -90,10 +84,32 @@ class Form extends React.Component {
           <option value="average">average</option>
           <option value="mode">mode</option>
         </select>
-        <button onClick={this.calculatesResult} type="submit">Calculate</button>
+        <button type="submit">Calculate</button>
       </form>
     );
   }
 }
 
 export default Form;
+
+
+
+// calculatesResult=() => {
+//   let sum = this.handleOperationChange === 'sum';
+//   let average = this.handleOperationChange === 'average';
+//   let mode = this.handleOperationChange === 'mode';
+
+//   switch(this.handleOperationChange) {
+//     case sum:
+//       console.log(`sum operation picked`)
+//       break;
+//     case average:
+//       console.log(`average operation picked`)
+//       break;
+//     case mode:
+//       console.log(`mode operation picked`)
+//       break;
+//     default:
+//       console.log(`Invalid operation.`);
+//   }
+// }
