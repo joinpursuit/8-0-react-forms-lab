@@ -16,27 +16,19 @@ class Form extends React.Component {
 	handleFormSubmit = (e) => {
 		const { operation, inputField } = this.state;
 		e.preventDefault();
-
 		// turning the input fields to array and then to numbers
 		let turningArr = this.state.inputField.split(",").map((i) => Number(i));
 
-		// for the empty string
+		// for the empty string && wrong input
 		if (inputField === "" || inputField !== Number) {
 			this.setState({
 				error: "Invalid input.",
 			});
 		}
-
-		//For not  a number
-		if (inputField === "," || inputField === Number) {
-			this.setState({
-				error: "",
-			});
-		}
-
 		// Sum
 		if (operation === "sum") {
 			this.setState({
+				error: "",
 				total: turningArr.reduce((acc, curr) => {
 					return acc + curr;
 				}),
@@ -46,16 +38,27 @@ class Form extends React.Component {
 		// Average
 		if (operation === "average") {
 			this.setState({
+				error: "",
 				total: turningArr.reduce((a, b) => a + b) / turningArr.length,
 			});
 		}
 
+		const mode = (a) =>
+			Object.values(
+				a.reduce((count, e) => {
+					if (!(e in count)) {
+						count[e] = [0, e];
+					}
+					count[e][0]++;
+					return count;
+				}, {})
+			).reduce((a, v) => (v[0] < a[0] ? a : v), [0, null])[1];
+
 		// Mode
 		if (operation === "mode") {
 			this.setState({
-				total: turningArr.reduce((acc, curr) => {
-					return acc + curr;
-				}),
+				error: "",
+				total: mode(turningArr),
 			});
 		}
 	};
@@ -86,7 +89,6 @@ class Form extends React.Component {
 						type="text"
 						onChange={this.handleNumberInput}
 					/>
-
 					<select
 						id="operation"
 						name="operation"
@@ -98,7 +100,6 @@ class Form extends React.Component {
 						<option value="average">average</option>
 						<option value="mode">mode</option>
 					</select>
-
 					<button type="submit">Calculate</button>
 				</form>
 				<div>{this.state.total}</div>
