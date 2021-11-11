@@ -17,30 +17,27 @@ class Form extends React.Component {
 		const { operation, inputField } = this.state;
 		e.preventDefault();
 
-		let turningArray = this.state.inputField.split(","); // to a array
-		let turningNumberArr = turningArray.map((i) => Number(i));
-		console.log(turningNumberArr);
-
-		console.log(inputField);
+		// turning the input fields to array and then to numbers
+		let turningArr = this.state.inputField.split(",").map((i) => Number(i));
 
 		// for the empty string
-		if (inputField === "") {
+		if (inputField === "" || inputField !== Number) {
 			this.setState({
 				error: "Invalid input.",
 			});
 		}
 
-		//for not  a number
-		if (inputField !== Number) {
+		//For not  a number
+		if (inputField === "," || inputField === Number) {
 			this.setState({
-				error: "Invalid input.",
+				error: "",
 			});
 		}
 
 		// Sum
 		if (operation === "sum") {
 			this.setState({
-				total: turningNumberArr.reduce((acc, curr) => {
+				total: turningArr.reduce((acc, curr) => {
 					return acc + curr;
 				}),
 			});
@@ -49,19 +46,18 @@ class Form extends React.Component {
 		// Average
 		if (operation === "average") {
 			this.setState({
-				total:
-					(turningNumberArr / turningNumberArr.length) *
-					turningNumberArr.length,
+				total: turningArr.reduce((a, b) => a + b) / turningArr.length,
 			});
 		}
 
 		// Mode
 		if (operation === "mode") {
 			this.setState({
-				total: this.state.total + 100,
+				total: turningArr.reduce((acc, curr) => {
+					return acc + curr;
+				}),
 			});
 		}
-		console.log(this.state.total);
 	};
 
 	// for the input field
@@ -106,9 +102,7 @@ class Form extends React.Component {
 					<button type="submit">Calculate</button>
 				</form>
 				<div>{this.state.total}</div>
-
 				<div>{this.state.error}</div>
-				{/* <div>{this.state.inputField}</div> */}
 			</div>
 		);
 	}
