@@ -2,11 +2,12 @@ import React from "react";
 import "./Form.css";
 
 class Form extends React.Component {
+  
   render() {
     return (
-      <form>
-        <input id="values" name="values" type="text" />
-        <select id="operation" name="operation">
+      <form onSubmit={this.props.onChildSubmit}>
+        <input id="values" name="values" type="text" value={this.props.val} onChange={this.props.onUserInput} />
+        <select id="operation" name="operation" value={this.props.oper} onChange={this.props.onSelection}>
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>
