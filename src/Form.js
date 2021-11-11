@@ -6,8 +6,8 @@ class Form extends React.Component {
   render() {
     return (
       <form onSubmit={this.props.onChildSubmit}>
-        <input id="values" name="values" type="text" value={this.props.val} onChange={this.props.onUserInput} />
-        <select id="operation" name="operation" value={this.props.oper} onChange={this.props.onSelection}>
+        <input className={this.props.errorState ? "error":""} id="values" name="values" type="text" value={this.props.val} onChange={this.props.onUserInput} />
+        <select className={this.props.errorState ? "error":""} id="operation" name="operation" value={this.props.oper} onChange={this.props.onSelection}>
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>

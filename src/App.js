@@ -8,14 +8,21 @@ class App extends React.Component {
     this.state={
       value:"",
       operator:"",
-      result:null
+      result:null,
+      err:false
     }
   }
   handleOnSubmit=(e)=>{
     e.preventDefault();
     const newArr=this.state.value.split(",");
-    if(!newArr.length || !this.state.operator) this.setState({result:"Invalid input."});
+    if(!newArr.length || !this.state.operator) this.setState({result:"Invalid input.", err:true});
+    if((this.state.value.match(/[^0-9,]/g)||[].length)) this.setState({result:"Invalid input.", err:true});
     else{
+      this.setState({
+        value:"",
+        err:false,
+        operator:""
+      })
       if(this.state.operator==="sum") this.setState({result:newArr.reduce((a,b)=>Number(a)+Number(b))}) ;
       if(this.state.operator==="average") this.setState({result:(newArr.reduce((a,b)=>Number(a)+Number(b)))/newArr.length}) ;
       if(this.state.operator==="mode") {
@@ -50,11 +57,11 @@ class App extends React.Component {
     })
   }
   render() {
-    const {value,operator}=this.state;
+    const {value,operator,err}=this.state;
     return (
       <main>
         <p>Enter each number in the array, separated by a ','</p>
-        <Form val={value} oper={operator} onChildSubmit={this.handleOnSubmit} onSelection={this.handleSelectChange} onUserInput={this.handleUserInput}/>
+        <Form errorState={err} val={value} oper={operator} onChildSubmit={this.handleOnSubmit} onSelection={this.handleSelectChange} onUserInput={this.handleUserInput}/>
         <section id="result">
           <p>{this.state.result}</p>
         </section>
