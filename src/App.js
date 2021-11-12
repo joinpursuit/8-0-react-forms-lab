@@ -9,11 +9,11 @@ class App extends React.Component {
         <p>Enter each number in the array, separated by a ','</p>
         <Form />
         <section id="result">
-          <p></p>
+          <p> Answer Goes here </p>
         </section>
       </main>
     );
-  }
-}
+  };
+};
 
 export default App;
