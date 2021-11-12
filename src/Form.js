@@ -55,7 +55,7 @@ class Form extends React.Component {
   
   handleValidation = (numArr) => {
     let flag = true;
-    if(this.state.input){
+    if(this.state.input=== ""){
       flag = false
     }
     for(let num of numArr) {
@@ -70,15 +70,15 @@ class Form extends React.Component {
     event.preventDefault();
     let newArr = this.state.input.split(",");
     let numArr = newArr.map(str => Number(str));
+    let isValid = this.handleValidation(numArr);
 
     if(this.state.operation === "") {
-      this.props.handleChangeResult("Invalid input.")
+      this.props.handleChangeResult("Invalid operation.");
       return;
     }
 
-    let isValid = this.handleValidation(numArr);
     if(!isValid) {
-      this.props.handleChangeResult("Invalid input. ")
+      this.props.handleChangeResult("Invalid input.");
       return;
     }
 
@@ -97,7 +97,7 @@ class Form extends React.Component {
       default:
         break;
     }
-    this.props.handleChangeResult(result);
+   this.props.handleChangeResult(result);
   }
 
   
@@ -106,7 +106,7 @@ class Form extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <input id="values" name="values" type="text" value={this.state.input} onInput={this.handleInputBox}/>
-        <select id="operation" name="operation" value={this.state.value} onChange={this.handleOperationChange}>
+        <select id="operation" name="operation" value={this.state.operation} onChange={this.handleOperationChange}>
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>
@@ -118,5 +118,6 @@ class Form extends React.Component {
     );
   }
 }
+
 
 export default Form;
