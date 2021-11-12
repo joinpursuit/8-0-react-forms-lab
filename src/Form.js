@@ -8,8 +8,7 @@ class Form extends React.Component {
     super();
     this.state = {
       numbers: '',
-      typeOfCalc: '',
-      result: 0
+      typeOfCalc: ''
     }
   }
 
@@ -24,7 +23,7 @@ class Form extends React.Component {
   // Create handleNumberInput - to add numbers into the state key of Numbers
   handleNumberInput = (event) => {
     this.setState({
-      numbers: (event.target.value)
+      numbers: event.target.value
     })
     // console.log(event.target.value);
   }
@@ -36,40 +35,51 @@ class Form extends React.Component {
       typeOfCalc: event.target.value
     })
   }
-  
+
   // Create handleCalculateButton for submit button
     // requires event.preventDefault()
     // Error checking is also needed for invalid inputs
     handleCalculateSubmit = (event) => {
       event.preventDefault();
 
-      let { numbers, typeOfCalc, result } = this.state;
+      let { numbers, typeOfCalc } = this.state;
+      let strNumbersArr = numbers.split(',')
+      let numbersArr = strNumbersArr.map((num) => {
+        return Number(num);
+      });
 
+      let isValid = true;
+
+      if (this.state.numbers === '') {
+          isValid = false;
+      }
+  
+      if(this.typeOfCalc === '') {
+          this.props.handleChangeResult('Invalid Operation')
+      }
+  
+      for(let num of numbersArr) {
+          if (isNaN(num)) {
+              isValid = false;
+          }
+      }
+  
+      if (!isValid) {
+          this.props.handleChangeResult('Invalid input.');
+          return;
+      }
+
+      let result = 0;
       if(typeOfCalc === 'sum') {
-        let strNumbersArr = numbers.split(',')
-        let numbersArr = strNumbersArr.map((num) => {
-          return Number(num);
-        })
         for(let i=0; i<numbersArr.length; i++){
-          this.setState({
-            result: result += numbersArr[i]
-          }) 
+          result += numbersArr[i]
         }
       } else if (typeOfCalc === 'average') {
-          let strNumbersArr = numbers.split(',')
-          let numbersArr = strNumbersArr.map((num) => {
-            return Number(num);
-          })
+          let sum = 0
           for(let i=0; i<numbersArr.length; i++){
-            this.setState({
-              result: (result += numbersArr[i])/numbersArr.length
-            })
+            result = (sum += numbersArr[i])/numbersArr.length
           }
       } else if (typeOfCalc === 'mode') {
-        let strNumbersArr = numbers.split(',')
-        let numbersArr = strNumbersArr.map((num) => {
-          return Number(num);
-        })
         let numCount = {};
         for(let i=0; i<numbersArr.length; i++){
           if(numCount[numbersArr[i]]){
@@ -78,11 +88,21 @@ class Form extends React.Component {
             numCount[numbersArr[i]] = 1
           }
         }
-        console.log(numCount)
+
+        let keys = Object.keys(numCount);
+        let highestValue = 0
+        let highestKey;
+        for(let key of keys) {
+            if(numCount[key] > highestValue) {
+              highestValue = numCount[key]
+              highestKey = key;
+            }
+        }
+        result = highestKey
       }
+      this.props.handleChangeResult(result)
     }
 
-    
   // Embed appropriate methods and states into JSX below
     // button tag will have handleSubmit
   
@@ -98,9 +118,6 @@ class Form extends React.Component {
           <option value="mode">mode</option>
         </select>
         <button type="submit">Calculate</button>
-        <section id="result">
-          <p>{this.state.result}</p>
-        </section>
       </form>
     );
   }
