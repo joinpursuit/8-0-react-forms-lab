@@ -27,25 +27,16 @@ class App extends React.Component {
     this.setState({
       numStr: e.target.value,
     })
+  }
 
-    // let nums = e.target.value;
-    // console.log(nums);
-    // let numsSplit = nums.split(",");
-    // let arr = [];
-    // for(let num of numsSplit) {
-    //   if(num !== "") {
-    //     arr.push(Number(num));
-    //   }
-    // }
-    // this.setState({
-    //   numArr: arr,
-    // })
-    // console.log(this.state.numArr);
-    // difference in last element with/without "," why?;
-    // console.log(numsSplit); //shows last num w/o ",";
-    // console.log(this.state.numArr); // doesn't show last num, need "," to show last num;
-
-    
+  handleCalculation = () => {
+    let numArr = this.state.numStr.split(",").map((num)=> Number(num));
+    switch (this.state.operator) {
+      case "sum": this.setState({result: this.handleSum(numArr)}); break;
+      case "average": this.setState({result: this.handleAvg(numArr)}); break;
+      case "mode": this.setState({result: this.handleMode(numArr)}); break;
+      default: this.setState({result: "Invalid input."});
+    }
   }
 
   handleSum = (numbers) => {
@@ -56,18 +47,27 @@ class App extends React.Component {
     return total;
   }
 
-  handleCalculation = () => {
-    let numArr = this.state.numStr.split(",").map((num)=> {
-      return Number(num);  
-    });
-    console.log(numArr);
+  handleAvg = (numbers) => {
+    let total = this.handleSum(numbers);
+    return total / numbers.length;
+  }
 
-    if(this.state.operator === "sum") {
-      console.log("trigger")
-      this.setState({
-        result: this.handleSum(numArr)
-      })
+  handleMode = (numbers) => {
+    let obj = {};
+    let largestValue = - 1;
+    let largestKey = -1;
+    for(let num of numbers) {
+      if(obj[num]) obj[num] += 1;
+      else obj[num] = 1;
     }
+    Object.keys(obj).forEach(k => {
+      let v = obj[k];
+      if(v > largestValue) {
+        largestValue = v;
+        largestKey = k;
+      }
+    })
+    return largestKey;
   }
 
   render() {
@@ -79,7 +79,7 @@ class App extends React.Component {
               operator = {this.state.operator}
               numbersArr = {this.state.numbersArr} 
               handleNumbers = {this.handleNumbers} 
-              />
+        />
         <section id="result">
           <p>{this.state.result}</p>
         </section>
