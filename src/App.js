@@ -35,7 +35,7 @@ class App extends React.Component {
       case "sum": this.setState({result: this.handleSum(numArr)}); break;
       case "average": this.setState({result: this.handleAvg(numArr)}); break;
       case "mode": this.setState({result: this.handleMode(numArr)}); break;
-      default: this.setState({result: "Invalid input."});
+      default: this.setState({result: "Invalid input."}); break;
     }
   }
 
@@ -77,7 +77,7 @@ class App extends React.Component {
         <Form handleFormSubmit={this.handleFormSubmit} 
               handleOperation = {this.handleOperation} 
               operator = {this.state.operator}
-              numbersArr = {this.state.numbersArr} 
+              numbersArr = {this.state.numStr} 
               handleNumbers = {this.handleNumbers} 
         />
         <section id="result">
