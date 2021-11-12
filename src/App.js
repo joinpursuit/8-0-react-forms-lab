@@ -29,7 +29,11 @@ class App extends React.Component {
     let input = userInput.split(',').map((num)=>{
       return Number(num)
     })
-    
+    if(!userInput || !mathOperation){
+      this.setState({
+        result: "Invalid input."
+      })
+    }
     if(mathOperation === "sum"){
       this.setState({
         result: input.reduce((previousVal, currentVal) => previousVal + currentVal)
