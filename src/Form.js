@@ -2,11 +2,37 @@ import React from "react";
 import "./Form.css";
 
 class Form extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      inputs: "",
+      operation: "",
+      calculation: ""
+    }
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+  }
+
+  handleInputs = (event) => {
+
+    this.setState({
+      inputs: event.target.value
+    });
+  }
+
+  handleOperations = (event) => {
+    this.setState({
+      operation: event.target.value
+    })
+  }
+
   render() {
     return (
-      <form>
-        <input id="values" name="values" type="text" />
-        <select id="operation" name="operation">
+      <form onSubmit={this.handleSubmit}>
+        <input id="values" name="values" type="text" value={this.state.inputs} onChange={this.handleInputs} />
+        <select id="operation" name="operation" onChange={this.handleOperations} >
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>
@@ -17,5 +43,4 @@ class Form extends React.Component {
     );
   }
 }
-
 export default Form;
