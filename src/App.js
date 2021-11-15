@@ -8,28 +8,29 @@ class App extends React.Component {
     super();
     this.state = {
       result: "",
-      hasFormError: false,
+      hasError: false,
     };
   }
 
   printResult = (result) => {
     this.setState({ result: result })
   }
-
+  rose = () => {
+    this.setState({ hasError: true })
+  }
   render() {
-    let error = "";
-    if (this.state.hasFormError) {
-      error = "Invalid Input"
-    }
+
 
     return (
       <main>
+
         <p>Enter each number in the array, separated by a ','</p>
-        <Form hasFormError={this.state.hasFormError}
+        <Form hasError={this.rose}
           afterSubmit={this.printResult}
         />
+        {/* <button onClick={() => { this.rose() }}></button> */}
+        <ResultSection result={this.state.result} hasError={this.state.hasError} />
 
-        <ResultSection result={this.state.result} />
 
       </main>
     );

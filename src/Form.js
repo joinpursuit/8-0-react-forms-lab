@@ -1,6 +1,5 @@
 import React from "react";
 import "./Form.css";
-import ErrorMessage from "./ErrorMessage";
 
 class Form extends React.Component {
   constructor() {
@@ -8,6 +7,8 @@ class Form extends React.Component {
     this.state = {
       userInput: "",
       mathChoice: "",
+      textInputHasError: false,
+      selectHasError: false,
     };
   }
 
@@ -32,23 +33,28 @@ class Form extends React.Component {
   handleCalculateButton = (e) => {
     e.preventDefault();
     const { userInput, mathChoice } = this.state;
-    this.props.afterSubmit()
-    // if (this.state.userInput === "") {
-    //   this.setState({
-    //     result: <ErrorMessage />
-    //   })
-    // }
+    if (userInput === '') {
+      this.setState({ textInputHasError: true })
+      this.props.hasError() //this is what's invoking the has error property to be true
+    }
+    if (mathChoice === 'sum') {
+      const nums = userInput.split(',').map((num) => Number(num))
+      let sum = 0;
+      nums.forEach((num) => sum += num)
+      this.props.afterSubmit(sum)
+      this.setState({ selectHasError: false })
+
+    } else if (mathChoice === 'average') {
+      const nums = userInput.split(',').map((num) => Number(num))
+      let sum = 0;
+      nums.forEach((num) => sum += num)
+      this.setState({ selectHasError: false })
+
+      this.props.afterSubmit(sum / nums.length)
+    } else {
+      this.setState({ hasError: true })
+    }
   }
-
-
-  // errorMessage = (event) => {
-  //   event.preventDefault()
-  //   if (this.state.userInput === "") {
-  //     this.setState({
-  //       error: "Invalid input."
-  //     })
-  //   }
-  // }
 
   render() {
     console.log(this.state)
@@ -57,12 +63,15 @@ class Form extends React.Component {
         <input name="userInput"
           type="text"
           value={this.state.userInput}
-          onChange={this.handleUserInputChange} />
+          onChange={this.handleUserInputChange}
+          className={this.state.textInputHasError ? 'error' : ''} />
+
 
         <select id="operation"
           name="operation"
           value={this.state.mathChoice}
-          onChange={this.handleMathChoice}>
+          onChange={this.handleMathChoice}
+          className={this.state.selectHasError ? 'error' : ''}>
 
           <option value=""></option>
           <option value="sum">sum</option>
