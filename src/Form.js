@@ -42,11 +42,12 @@ class Form extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    let numStrArr = ['0','1','2','3','4','5','6','7','8','9'];
-    if(this.state.inputs === "" || !numStrArr.includes(this.state.inputs[0])){
+   let numArr = this.state.inputs.split(",");  //turn input into array of string nums
+    let allValid = numArr.every((num) => parseInt(num) && Number(num));  //check if every element is a valid number
+    if (!allValid) {
       this.setState({
-        calculation: 'Invalid input.'
-      })
+        calculation: "Invalid input.",
+      });
     }else{
     let arr = this.state.inputs.split(",").map((str) => Number(str));
     let result = 0;
