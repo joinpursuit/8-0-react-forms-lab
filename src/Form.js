@@ -11,6 +11,12 @@ class Form extends React.Component {
       input: [],
     };
   }
+
+  selection = (event) => {
+    this.setState({
+      func: event.target.value,
+    });
+  };
   refresh = (event) => {
     let value = event.target.value;
     this.setState({
@@ -18,13 +24,6 @@ class Form extends React.Component {
       input: value.split(",").map((item) => Number(item)),
     });
   };
-
-  selection = (event) => {
-    this.setState({
-      func: event.target.value,
-    });
-  };
-
   cases = (event) => {
     event.preventDefault();
     switch (this.state.func) {
@@ -66,6 +65,7 @@ class Form extends React.Component {
         });
     }
   };
+
   render() {
     return ( <>
       <form>
