@@ -6,8 +6,10 @@ class Form extends React.Component {
     super();
     this.state = {
       numbers: [],
+      inputValue: "",
       operation: "",
       result: "",
+      errorTest: "noError",
     };
   }
 
@@ -30,7 +32,7 @@ class Form extends React.Component {
     let newArr = Object.entries(obj);
     let mode = newArr[0];
     for (let i = 1; i < newArr.length; i++) {
-      if (mode[1] < newArr[i][1]) {
+      if (newArr[i][1] > mode[1]) {
         mode = newArr[i];
       }
     }
@@ -45,6 +47,7 @@ class Form extends React.Component {
     });
     this.setState({
       numbers: numArr,
+      inputValue: value,
     });
   };
 
@@ -80,7 +83,7 @@ class Form extends React.Component {
     const { numbers, operation } = this.state;
 
     if (!this.inputValidator()) {
-      this.setState({ result: "Invalid input." });
+      this.setState({ result: "Invalid input.", errorTest: "error" });
     } else {
       //calculate for the sum
       if (operation === "sum") {
@@ -88,6 +91,9 @@ class Form extends React.Component {
           result: numbers.reduce((acc, ele) => {
             return (acc += ele);
           }),
+          inputValue: "",
+          operation: "",
+          errorTest: "noError",
         });
       } else if (operation === "average") {
         //calculate for the average
@@ -96,18 +102,24 @@ class Form extends React.Component {
             numbers.reduce((acc, ele) => {
               return acc + ele;
             }) / numbers.length,
+          inputValue: "",
+          operation: "",
+          errorTest: "noError",
         });
       } else {
         //calculate the mode
         this.setState({
           result: this.findMode(numbers),
+          inputValue: "",
+          operation: "",
+          errorTest: "noError",
         });
       }
     }
   };
 
   render() {
-    const { result } = this.state;
+    const { result, inputValue, operation, errorTest } = this.state;
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -115,12 +127,16 @@ class Form extends React.Component {
             id="values"
             name="values"
             type="text"
+            value={inputValue}
             onChange={this.handleTextInput}
+            class={errorTest}
           />
           <select
             id="operation"
             name="operation"
+            value={operation}
             onChange={this.handleSelectInput}
+            class={errorTest}
           >
             <option value=""></option>
             <option value="sum">sum</option>
