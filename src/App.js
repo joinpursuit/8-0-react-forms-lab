@@ -7,7 +7,7 @@ class App extends React.Component {
     return (
       <main>
         <p>Enter each number in the array, separated by a ','</p>
-        <Form />
+        <Form title="Hello" />
         <section id="result">
           <p></p>
         </section>
