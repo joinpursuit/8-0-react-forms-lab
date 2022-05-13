@@ -54,7 +54,6 @@ Build a React app containing:
 You should leave the component structure as is.
 
 ### Examples
-
 For example, if the text input contains `1,3,3,7` and the select is set to `sum`, clicking the button should print `14` to the screen.
 Switching the select to `mode` and clicking the button again would replace that with `3`.
 
