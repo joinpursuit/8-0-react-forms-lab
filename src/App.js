@@ -1,5 +1,6 @@
 import React from "react";
 import Form from "./Form";
+// import Calculations from "./Calculations";
 import "./App.css";
 
 class App extends React.Component {
@@ -8,9 +9,6 @@ class App extends React.Component {
       <main>
         <p>Enter each number in the array, separated by a ','</p>
         <Form />
-        <section id="result">
-          <p></p>
-        </section>
       </main>
     );
   }
