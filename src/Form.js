@@ -94,7 +94,7 @@ class Form extends React.Component {
     event.preventDefault();
     const { operation, numbers } = this.state;
 
-    if (!this.validInputChecker) {
+    if (!this.validInputChecker()) {
       this.setState({
         result: 'Invalid input.',
       });
