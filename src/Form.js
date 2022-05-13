@@ -2,6 +2,27 @@ import React from "react";
 import "./Form.css";
 
 class Form extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      input: [],
+      operation: "",
+      result: "",
+    };
+  }
+
+  handleOperationChange = (event) => {
+    this.setState({
+      operation: event.target.value,
+    });
+  };
+
+  handleInput = (event) => {
+    this.setState({
+      input: event.target.value.split(","),
+    });
+  };
+
   render() {
     return (
       <form>
