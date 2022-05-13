@@ -50,27 +50,18 @@ class Form extends React.Component {
         countObj[num] = 1;
       }
     }
-    // at this point, countObj is made up of the digits of user input as keys and the # of times they appear as their values.
-    let newArr = Object.entries(countObj);
-    let highest = newArr[0];
-    for (let i = 1; i < newArr.length; i++) {
-      if (newArr[i][1] > highest[1]) {
-        highest = newArr[i];
+
+    // // at this point, countObj is made up of the digits of user input as keys and the # of times they appear as their values.
+    let keys = Object.keys(countObj);
+    let highestValue = 0;
+    let highestKey;
+    for(let key of keys){
+      if(countObj[key] > highestValue){
+        highestValue = countObj[key];
+        highestKey = key;
       }
     }
-    return highest[0];
-
-    // alternative
-    // let keys = Object.keys(countObj);
-    // let highestValue = 0;
-    // let highestKey;
-    // for(let key of keys){
-    //   if(countObj[key] > highestValue){
-    //     highestValue = countObj[key];
-    //     highestKey = key;
-    //   }
-    // }
-    // return highestKey
+    return highestKey
   };
 
   operationHandler = (event) => {
