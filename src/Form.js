@@ -1,88 +1,70 @@
-import React from "react";
-import "./Form.css";
+import React from 'react';
+import './Form.css';
 
 class Form extends React.Component {
-  constructor(){
-    super();
-
-    this.state = {
-      values: null,
-      action: null,
-      valid: false,
-    }
-  }
-
-  handleOperationChange = (event) => {
-    const { value } = event.target
-
-    this.setState({
-      action: value
-    })
-  }
-
   handleFormSubmit = (event) => {
     event.preventDefault();
-    const { operation , values } = event.target
+    const { operation, values } = event.target;
 
-    if (operation.value && values.value){
-      document.getElementById("values").setAttribute("class", "")
-      document.getElementById("operation").setAttribute("class", "")
+    if (operation.value && values.value) {
+      document.getElementById('values').setAttribute('class', '');
+      document.getElementById('operation').setAttribute('class', '');
 
-      this.setState({
-        values: values.value,
-        valid: true,
-      })
+      this.sendResults(values.value, operation.value);
 
-      this.sendResults(values.value, operation.value)
-
-      document.querySelector("form").reset()
-
+      document.getElementById('form').reset();
     } else {
-      document.getElementById("values").setAttribute("class", "error")
-      document.getElementById("operation").setAttribute("class", "error")
-      document.getElementById("result").textContent = "Invalid input."
+      document.getElementById('values').setAttribute('class', 'error');
+      document.getElementById('operation').setAttribute('class', 'error');
+      document.getElementById('result').textContent = 'Invalid input.';
 
-      this.setState({
-        valid: false,
-      })
     }
-  }
+  };
 
   sendResults = (values, operation) => {
-    const sumOfValues = values.split(",").reduce( (acc, num) => (parseFloat(acc) + parseFloat(num)))
-    console.log(operation)
-    let result = 0
+    const sumOfValues = values
+      .split(',')
+      .reduce((acc, num) => parseFloat(acc) + parseFloat(num));
+    let sortedValues = values.split(',').sort((a, b) => a - b);
+    let result = 0;
 
-    if (operation === 'sum'){
-      result = sumOfValues
-    } else if (operation === "average"){
-      result = (sumOfValues / values.split(",").length).toFixed()
+    if (operation === 'sum') {
+      result = sumOfValues;
+
+    } else if (operation === 'average') {
+      result = (sumOfValues / values.split(',').length).toFixed(2);
+
+    } else if (operation === 'mode') {
+      let maxCount = 1;
+      let mode = sortedValues[0];
+      let count = 1;
+
+      for (let idx = 1; idx < sortedValues.length; idx++) {
+        if (sortedValues[idx] === sortedValues[idx - 1]) {
+          count++;
+        } else {
+          count = 1;
+        }
+        if (count > maxCount) {
+          maxCount = count;
+          mode = sortedValues[idx - 1];
+        }
+      }
+      result = mode;
     }
-    // } else if (operation === "mode"){
-    //   const counts = new Object
-    //   result = values.split(",").forEach(function(e) {
-    //     if(counts[e] === undefined) {
-    //       counts[e] = 0
-    //     }
-    //     counts[e] += 1
-    //   })
-    //}
-
-    document.getElementById("result").textContent = result
-  }
-
+    document.getElementById('result').textContent = result;
+    
+  };
 
   render() {
-    const {values, action, valid } = this.state
-
     return (
-      <form onSubmit={this.handleFormSubmit}>
-        <input id="values" name="values" type="text"/>
-        <select onChange={this.handleOperationChange} id="operation" name="operation" >
+      <form onSubmit={this.handleFormSubmit} id="form">
+        <input id="values" name="values" type="text" />
+        <select id="operation" name="operation">
           <option value=""></option>
-          <option value='sum'>sum</option>
-          <option value='average'>average</option>
-          <option value='mode'>mode</option>
+          <option value="sum">sum</option>
+          <option value="average">average</option>
+          <option value="mode">mode</option>
         </select>
         <button type="submit">Calculate</button>
       </form>
