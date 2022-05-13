@@ -7,12 +7,19 @@ class Form extends React.Component {
     this.state = {
       values: "",
       operation: "",
+      result: "",
     };
   }
 
   mathWiz = () => {
     const { values, operation } = this.state;
+    if (!values) {
+      return `Invalid input.`;
+    }
     const arrayOfNums = values.split(",").map((num) => Number(num));
+    if (arrayOfNums.includes(NaN)) {
+      return `Invalid input.`;
+    }
     if (operation === "sum") {
       return arrayOfNums.reduce((a, b) => a + b, 0);
     } else if (operation === "average") {
@@ -28,17 +35,18 @@ class Form extends React.Component {
             obj[num] += 1;
           }
         });
-        let highestValue = 0;
-        let highestValueKey = -Infinity;
+        let biggestValue = -1;
+        let biggestValueKey = -1;
 
-        for (let key in obj) {
-          const value = obj[key];
-          if (value > highestValue) {
-            highestValue = value;
-            highestValueKey = key;
+        Object.keys(obj).forEach((key) => {
+          let value = obj[key];
+          if (value > biggestValue) {
+            biggestValue = value;
+            biggestValueKey = key;
           }
-        }
-        return highestValueKey;
+        });
+
+        return biggestValueKey;
       }
       return getMode(arrayOfNums);
     }
@@ -46,7 +54,9 @@ class Form extends React.Component {
 
   handleInputValues = (e) => {
     const { value } = e.target;
-    this.setState({ values: value });
+    this.setState({
+      values: value,
+    });
   };
 
   handleSelectChange = (e) => {
@@ -58,33 +68,39 @@ class Form extends React.Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault();
-    alert(this.mathWiz());
+
+    this.setState({
+      result: this.mathWiz(),
+    });
   };
 
   render() {
-    const { values, operation } = this.state;
+    const { values, operation, result } = this.state;
     return (
-      <form onSubmit={this.handleFormSubmit}>
-        <input
-          id="values"
-          name="values"
-          type="text"
-          value={values}
-          onChange={this.handleInputValues}
-        />
-        <select
-          id="operation"
-          name="operation"
-          value={operation}
-          onChange={this.handleSelectChange}
-        >
-          <option value=""></option>
-          <option value="sum">sum</option>
-          <option value="average">average</option>
-          <option value="mode">mode</option>
-        </select>
-        <button type="submit">Calculate</button>
-      </form>
+      <div>
+        <form onSubmit={this.handleFormSubmit}>
+          <input
+            id="values"
+            name="values"
+            type="text"
+            value={values}
+            onChange={this.handleInputValues}
+          />
+          <select
+            id="operation"
+            name="operation"
+            value={operation}
+            onChange={this.handleSelectChange}
+          >
+            <option value=""></option>
+            <option value="sum">sum</option>
+            <option value="average">average</option>
+            <option value="mode">mode</option>
+          </select>
+          <button type="submit">Calculate</button>
+        </form>
+        <p>{result}</p>
+      </div>
     );
   }
 }
