@@ -69,17 +69,32 @@ class Form extends React.Component {
   };
 
   render() {
+    const { result, input, operation } = this.state;
     return (
-      <form>
-        <input id="values" name="values" type="text" />
-        <select id="operation" name="operation">
-          <option value=""></option>
-          <option value="sum">sum</option>
-          <option value="average">average</option>
-          <option value="mode">mode</option>
-        </select>
-        <button type="submit">Calculate</button>
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmitForm}>
+          <input
+            id="values"
+            name="values"
+            type="text"
+            value={input}
+            onChange={this.handleInput}
+          />
+          <select
+            id="operation"
+            name="operation"
+            value={operation}
+            onChange={this.handleOperationChange}
+          >
+            <option value=""></option>
+            <option value="sum">sum</option>
+            <option value="average">average</option>
+            <option value="mode">mode</option>
+          </select>
+          <button type="submit">Calculate</button>
+        </form>
+        <p id="result">{result}</p>
+      </div>
     );
   }
 }
