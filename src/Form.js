@@ -12,7 +12,7 @@ class Form extends React.Component {
       isValidOperation: false,
       result: '',
     };
-    //initialState = { name: '' }
+    // >> Binding
     this.handleTextChange = this.handleTextChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleFormReset = this.handleFormReset.bind(this);
@@ -20,7 +20,7 @@ class Form extends React.Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-    // >> 
+    // >> Validsations
     if (this.state.values === ''){
       this.setState({
         result: 'Invalid input.',
@@ -37,8 +37,7 @@ class Form extends React.Component {
         result: <Calculations values={this.state.values} operation={this.state.operation} />,
       }); 
     }
-    //event.target.reset();
-    console.log(this.state.isValidValues, this.state.isValidOperation);
+    
     this.handleFormReset(this.state.isValidValues, this.state.isValidOperation);
   };
 
@@ -66,16 +65,12 @@ class Form extends React.Component {
   }
 
   handleFormReset = (input, select) => {
-    console.log(input, select)
-
     if(input && select){
       this.setState({
         values: '',
         operation: '',
       });
     }
-
-    
   }
 
   render() {
@@ -83,7 +78,6 @@ class Form extends React.Component {
     return (
       <>
         <form onSubmit={this.handleFormSubmit} onReset={this.handleFormReset}>
-
           <input 
             id="values" 
             name="values"
@@ -91,14 +85,12 @@ class Form extends React.Component {
             value={this.state.values}
             onChange={this.handleTextChange}
           />
-
           <select id="operation" name="operation" value={this.state.operation} onChange={this.handleSelectChange}>
             <option value=""></option>
             <option value="sum">sum</option>
             <option value="average">average</option>
             <option value="mode">mode</option>
           </select>
-
           <button type="submit">Calculate</button>
         </form>
         <section id="result">
