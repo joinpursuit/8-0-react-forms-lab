@@ -3,6 +3,12 @@ import Form from "./Form";
 import "./App.css";
 
 class App extends React.Component {
+  constructor(){
+    super()
+    this.state= {
+
+    }
+  }
   render() {
     return (
       <main>
