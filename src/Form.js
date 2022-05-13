@@ -11,20 +11,19 @@ class Form extends React.Component {
       input: [],
     };
   }
-
-  selection = (event) => {
+  selecty = (event) => {
     this.setState({
       func: event.target.value,
     });
   };
-  refresh = (event) => {
-    let value = event.target.value;
-    this.setState({
+  refreshments = (event) => {
+      let value = event.target.value;
+      this.setState({
       userInput: value,
       input: value.split(",").map((item) => Number(item)),
     });
   };
-  cases = (event) => {
+  casos = (event) => {
     event.preventDefault();
     switch (this.state.func) {
       case "sum":
@@ -59,7 +58,7 @@ class Form extends React.Component {
           result: mode.join(),
         });
         break;
-      default:
+        default:
         this.setState({
           result: "Invalid input.",
         });
@@ -69,18 +68,18 @@ class Form extends React.Component {
   render() {
     return ( <>
       <form>
-        <input id="values" name="values" type="text" onChange={this.refresh} />
+        <input id="values" name="values" type="text" onChange={this.refreshments} />
         <select
           id="operation"
           name="operation"
-          onChange={this.selection}
+          onChange={this.selecty}
         >
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>
           <option value="mode">mode</option>
         </select>
-        <button type="submit" onClick={this.cases}>
+        <button type="submit" onClick={this.casos}>
           Calculate
         </button>
       </form>
