@@ -10,9 +10,16 @@ class Form extends React.Component {
       document.getElementById('values').setAttribute('class', '');
       document.getElementById('operation').setAttribute('class', '');
 
-      this.sendResults(values.value, operation.value);
+      const valueEqualsNumber = (val)  => !Number.isNaN(parseFloat(val));
 
-      document.getElementById('form').reset();
+      if (values.value.split(",").every(valueEqualsNumber)){
+        this.sendResults(values.value, operation.value);
+      } else {
+        document.getElementById('values').setAttribute('class', 'error');
+        document.getElementById('operation').setAttribute('class', 'error');
+        document.getElementById('result').textContent = 'Invalid input.';
+      }
+
     } else {
       document.getElementById('values').setAttribute('class', 'error');
       document.getElementById('operation').setAttribute('class', 'error');
@@ -29,10 +36,10 @@ class Form extends React.Component {
     let result = 0;
 
     if (operation === 'sum') {
-      result = sumOfValues;
-
+      result = ( isNaN(sumOfValues) ? values.split(",") : sumOfValues)
+     
     } else if (operation === 'average') {
-      result = (sumOfValues / values.split(',').length).toFixed(2);
+      result = ( isNaN(sumOfValues) ? values.split(",") : (sumOfValues / values.split(',').length).toFixed(2));
 
     } else if (operation === 'mode') {
       let maxCount = 1;
@@ -53,7 +60,8 @@ class Form extends React.Component {
       result = mode;
     }
     document.getElementById('result').textContent = result;
-    
+    document.getElementById('form').reset();
+
   };
 
   render() {
