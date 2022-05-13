@@ -97,6 +97,8 @@ class Form extends React.Component {
     if (!this.validInputChecker()) {
       this.setState({
         result: 'Invalid input.',
+        input: '',
+        operation: '',
       });
     } else {
       if (operation === 'sum') {
