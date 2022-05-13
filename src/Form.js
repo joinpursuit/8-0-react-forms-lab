@@ -8,6 +8,7 @@ class Form extends React.Component {
       inputtedValue: "",
       calcResult: "",
       selectedCalc: "",
+      addErrorClass: "",
     };
   }
 
@@ -41,8 +42,6 @@ class Form extends React.Component {
   };
 
   errorHandle = (valueArr) => {
-    const values = document.querySelector("#values");
-    const operation = document.querySelector("#operation");
     let errors = false;
 
     if (valueArr.length <= 1) {
@@ -65,12 +64,14 @@ class Form extends React.Component {
         }
       }
       if (errors === true) {
-        values.classList.add("error");
-        operation.classList.add("error");
+        this.setState({
+          addErrorClass: "error",
+        });
       } else {
         this.doCalculations(valueArr);
-        values.classList.remove("error");
-        operation.classList.remove("error");
+        this.setState({
+          addErrorClass: "",
+        });
       }
     }
   };
@@ -124,7 +125,8 @@ class Form extends React.Component {
   };
 
   render() {
-    const { inputtedValue, calcResult, selectedCalc } = this.state;
+    const { inputtedValue, calcResult, selectedCalc, addErrorClass } =
+      this.state;
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -134,12 +136,14 @@ class Form extends React.Component {
           type="text"
           value={inputtedValue}
           onChange={this.handletextChange}
+          className={addErrorClass}
         />
         <select
           id="operation"
           name="operation"
           value={selectedCalc}
           onChange={this.selectCalculation}
+          className={addErrorClass}
         >
           <option value=""></option>
           <option value="sum">sum</option>
