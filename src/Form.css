@@ -1,3 +1,5 @@
+
+/* SET AN ERROR CLASS TO THE INPUT AND THE SELECT DROPDOWN */
 input.error,
 select.error {
   border: 1px solid red;
