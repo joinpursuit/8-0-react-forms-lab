@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import "./Form.css";
 
 const Form = (props) => {
-  const { calculation, setCalculation } = props;
+  const { setResult } = props;
 
-  const [numbers, setNumbers] = useState("");
+  const [numbers, setNumbers] = useState('');
+  const [error, setError] = useState('');
 
   const handleNumbers = (e) => {
     const { value } = e.target;
     setNumbers(value);
   };
 
-  const [select, setSelect] = useState("");
+  const [select, setSelect] = useState('');
 
   const handleSelect = (e) => {
     const { value } = e.target;
@@ -20,49 +21,55 @@ const Form = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //include comma to split at every comma
-    if(numbers === ''){
-      setCalculation('Invalid input.')
-    }
     const numArr = numbers.split(",");
 
     numArr.forEach(num => {
       if(!Number(num)){
-        setCalculation('Invalid input.')
+        setResult('Invalid input.');
+        setError('error');
+      }})
+
+    if(numbers === ''){
+      setResult('Invalid input.')
+    }else{
+      if (select === "sum") {
+        numArr.forEach(num => {
+          if(!Number(num)){
+            setResult('Invalid input.');
+            setError('error');
+          } else{
+            setResult(numArr.reduce((a, b) => Number(a) + Number(b)));
+            setNumbers('');
+            setSelect('');
+            setError('');
+          }
+        });
+      } else if (select === "average") {
+        numArr.forEach(num => {
+          if(!Number(num)){
+            setResult('Invalid input.');
+            setError('error');
+          } else{
+            setResult(numArr.reduce((a, b) => Number(a) + Number(b)) / numArr.length);
+            setNumbers('');
+            setSelect('');
+            setError('');
+          }
+        });
+      } else if (select === "mode") {
+        numArr.forEach(num => {
+          if(!Number(num)){
+            setResult('Invalid input.');
+            setError('error');
+          } else{
+            setResult(numArr.reduce((a, b) => Math.max(Number(a), Number(b))));
+            setNumbers('');
+            setSelect('');
+            setError('');
+          }
+        })
       }
-    })
-
-    if (select === "sum") {
-      setCalculation(
-        numArr.reduce((a, b) => Number(a) + Number(b))
-      );
-    } else if (select === "average") {
-      setCalculation(
-        numArr.reduce((a, b) => Number(a) + Number(b)) / numArr.length)
-    } else if (select === "mode") {
-      const obj = {};
-      let highestValue = 0;
-      let highestValueKey = -Infinity;
-
-      numArr.forEach( number => {
-        if(!obj[number]){
-          obj[number] = 1
-        } else{
-          obj[number] += 1
-        }
-      })
-
-      for(let key in obj){
-        const value = obj[key];
-        if(value > highestValue){
-          highestValue = value;
-          highestValueKey = key;
-        }
-      }
-      setCalculation(Number(highestValueKey))
     }
-
-    setNumbers('')
   };
 
   return (
@@ -73,12 +80,14 @@ const Form = (props) => {
         type="text"
         value={numbers}
         onChange={handleNumbers}
+        class={error}
       />
       <select
         id="operation"
         name="operation"
         value={select}
         onChange={handleSelect}
+        class={error}
       >
         <option value=""></option>
         <option value="sum">sum</option>

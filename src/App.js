@@ -3,19 +3,17 @@ import Form from "./Form";
 import "./App.css";
 
 const App = () => {
-  const [calculation, setCalculation] = useState('');
+  const [result, setResult] = useState('');
 
-  
     return (
       <main>
         <p>Enter each number in the array, separated by a ','</p>
-        <Form calculation={calculation} setCalculation={setCalculation}/>
+        <Form result={result} setResult={setResult}/>
         <section id="result">
-          <p>{ calculation }</p>
+          <p>{ result }</p>
         </section>
       </main>
     );
-
 }
 
 export default App;
