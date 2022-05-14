@@ -62,7 +62,26 @@ const Form = (props) => {
             setResult('Invalid input.');
             setError('error');
           } else{
-            setResult(numArr.reduce((a, b) => Math.max(Number(a), Number(b))));
+            const obj = {};
+            numArr.forEach(num => {
+              if(!obj[num]){
+                obj[num] = 1
+              }else{
+                obj[num] += 1
+              }
+
+              let highestCount = 0;
+              let mode;
+              
+              for(let key in obj){
+                const value = obj[key];
+                if(value > highestCount){
+                  highestCount = value;
+                  mode = key;
+                }
+              }
+              setResult(Number(mode));
+            })
             setNumbers('');
             setSelect('');
             setError('');
@@ -80,14 +99,14 @@ const Form = (props) => {
         type="text"
         value={numbers}
         onChange={handleNumbers}
-        class={error}
+        className={error}
       />
       <select
         id="operation"
         name="operation"
         value={select}
         onChange={handleSelect}
-        class={error}
+        className={error}
       >
         <option value=""></option>
         <option value="sum">sum</option>
