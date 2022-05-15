@@ -5,12 +5,14 @@ body {
   font-size: 24px;
   margin: 0;
   padding: 0;
+background-image: url("https://www.citysignal.com/wp-content/uploads/2022/03/aj-McsNra2VRQQ-unsplash-scaled.jpg");
 }
 
 main {
   margin: 25px auto;
   text-align: center;
   width: 80%;
+
 }
 
 input,
@@ -19,4 +21,13 @@ button {
   display: block;
   margin: 15px auto;
   padding: 5px;
+
+}
+
+button{
+  background-color: rgb(210, 133, 166);
+  font-size: large;
+  font-family: monospace;
+  color: rgb(248, 250, 251);
+border-radius: 10px;
 }
