@@ -1,1 +1,17 @@
 /* Add your own CSS! */
+p {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+color: rgb(107, 58, 129);
+}
+
+input
+ { background-color: rgb(233, 194, 224);
+    border-radius: 10px;
+    font-family: serif;
+    font-size: large;
+}
+select{
+    background-color: rgb(233, 194, 224);
+    font-family: serif;
+    font-size: large;
+}
