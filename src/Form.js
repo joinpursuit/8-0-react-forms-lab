@@ -4,9 +4,20 @@ import "./Form.css";
 class Form extends React.Component {
   render() {
     return (
-      <form>
-        <input id="values" name="values" type="text" />
-        <select id="operation" name="operation">
+      <form onSubmit={this.props.handleSubmit}>
+        <input
+          className={this.props.errorClass}
+          onChange={this.props.handleNumbers}
+          id="values"
+          name="values"
+          type="text"
+        />
+        <select
+          className={this.props.errorClass}
+          onChange={this.props.handleOperation}
+          id="operation"
+          name="operation"
+        >
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>
