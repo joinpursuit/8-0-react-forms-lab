@@ -31,26 +31,31 @@ class App extends React.Component {
   handleSubmit = (e) => {
     const { operation, numbersArray } = this.state;
 
+    if (!numbersArray.includes(NaN)) {
+      e.target.operation.value = "";
+      e.target.values.value = "";
+    }
+
     e.preventDefault();
     if (operation && numbersArray.length > 0) {
-      this.setState({
-        result: "Calculation result:",
-      });
-
       if (operation === "sum") {
         let sumRes = numbersArray.reduce((acc, num) => acc + num, 0);
 
         this.setState({
           result: sumRes,
         });
-      } else if (operation === "average") {
+      }
+
+      if (operation === "average") {
         let avgRes =
           numbersArray.reduce((acc, num) => acc + num, 0) / numbersArray.length;
 
         this.setState({
           result: avgRes,
         });
-      } else if (operation === "mode") {
+      }
+
+      if (operation === "mode") {
         const hashMap = {};
         numbersArray.forEach((num) => {
           if (!hashMap[num]) {
@@ -78,6 +83,7 @@ class App extends React.Component {
           handleSubmit={this.handleSubmit}
           handleOperation={this.handleOperationChange}
           handleNumbers={this.handleNumbersChange}
+          errorClass={!this.state.result ? "error" : ""}
         />
         <section id="result">
           <p>{this.state.result ? this.state.result : "Invalid input."}</p>

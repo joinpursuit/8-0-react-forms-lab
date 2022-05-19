@@ -6,12 +6,14 @@ class Form extends React.Component {
     return (
       <form onSubmit={this.props.handleSubmit}>
         <input
+          className={this.props.errorClass}
           onChange={this.props.handleNumbers}
           id="values"
           name="values"
           type="text"
         />
         <select
+          className={this.props.errorClass}
           onChange={this.props.handleOperation}
           id="operation"
           name="operation"
