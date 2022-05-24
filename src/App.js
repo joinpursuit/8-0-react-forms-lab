@@ -1,19 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Form from "./Form";
 import "./App.css";
 
-class App extends React.Component {
-  render() {
-    return (
+const App = () => {
+  const [calculation, setCalculation] = useState('');
+  return (
       <main>
         <p>Enter each number in the array, separated by a ','</p>
-        <Form />
+        <Form calculation={calculation} setCalculation={setCalculation}/>
         <section id="result">
           <p></p>
+          <p>{ calculation }</p>
         </section>
       </main>
     );
   }
-}
 
 export default App;
