@@ -46,10 +46,15 @@ Keep the following in mind for this lab as you run the tests.
 
 Build a React app containing:
 
-- An input where the user can enter comma-separated number values in an array.
+- An input where the user can enter comma-separated number values in an array. // Already exist
+
 - A select input to choose between calculating the sum, the average, and the [mode](https://www.mathsisfun.com/definitions/mode.html) -- the most frequently occurring number.
+
 - A "Calculate" button that, when pressed, puts the result of the selected operation on the input numbers on the screen.
-  - If the numbers are invalid for some reason, display the exact message `Invalid input.`, keeping the punctuation.
+
+  - If the numbers are invalid for some reason, display the exact message 
+  `Invalid input.`,
+   keeping the punctuation.
 
 You should leave the component structure as is.
 
@@ -77,6 +82,6 @@ There are additional challenges in place should you want to use them.
 - If the input is valid, clear the input boxes after the "Calculate" button is clicked.
 - If the input is invalid, _do not_ clear the input boxes after the "Calculate" button is clicked.
 - Add a class of "error" to both the `input` and `select` elements if the input is invalid.
-  - If the input is then changed so that it is valid, remove those classes the next time the "Calculate" button is clicked.
-
+`  - If the input is then changed so that it is valid, remove those classes the next time the "Calculate" button is clicked.
+`
 ![Example of the the bonus error styling.](./assets/error.gif)
