@@ -1,7 +1,29 @@
-import React from "react";
+import { useState } from "react";
 import "./Form.css";
 
-class Form extends React.Component {
+const Form = () => {
+
+const [options, setOptions] = useState("");
+const [sum, setSum] = useState(0);
+const [average, setAverage] = useState(0);
+const [mode, setMode] = useState(0);
+
+const handleOptions = (event) => {
+  setOptions(event.target.value)
+}
+
+const handleSum = (event) => {
+  const { value } = event.target;
+  setSum(value);
+}
+
+const handleAverage = (event) => {
+  const { value } = event.target;
+  setAverage(value);
+}
+
+
+
   render() {
     return (
       <form>
