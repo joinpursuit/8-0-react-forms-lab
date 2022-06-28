@@ -16,21 +16,49 @@ const Form = ({ setResult }) => {
     setSelectOp(value);
   };
 
+  const clearFields = () => {
+    setUserInput("");
+    setSelectedOp("");
+    // setErrorClassName("");
+  };
+
   const handleSubmit = (e) => {
-    const arr = userInput.split(",").map(i => Number(i));
-    const sum = arr.reduce((a, b) => (a + b));
+    const arr = userInput.split(",").map((i) => Number(i));
+    const sum = arr.reduce((a, b) => a + b);
     const average = Math.floor(sum / arr.length);
-  }
+  };
 
   e.preventDefault();
 
-
-
+  if (!userInput || !selectOp) {
+    setResult("Invalid input.");
+    setUserInput(userInput);
+  } else if (userInput && selectOp === "sum") {
+    setResult(sum);
+    clearFields();
+  } else if (userInput && selectOp === "average") {
+    setResult(average);
+    clearFields();
+  } else {
+    setResult(mode);
+    clearFields();
+  }
 
   return (
-    <form onSubmit={ handleSubmit }>
-      <input id="values" name="values" type="text" onChange={ handleUserInput } value={ userInput }/>
-      <select id="operation" name="operation" onChange={ handleSelectOp } value={ selectOp }>
+    <form onSubmit={handleSubmit}>
+      <input
+        id="values"
+        name="values"
+        type="text"
+        onChange={handleUserInput}
+        value={userInput}
+      />
+      <select
+        id="operation"
+        name="operation"
+        onChange={handleSelectOp}
+        value={selectOp}
+      >
         <option value=""></option>
         <option value="sum">sum</option>
         <option value="average">average</option>
@@ -39,11 +67,7 @@ const Form = ({ setResult }) => {
       <button type="submit">Calculate</button>
     </form>
   );
-}
-
-
-
-
+};
 
 // class Form extends React.Component {
 //   constructor(){
@@ -70,22 +94,21 @@ const Form = ({ setResult }) => {
 //     })
 //   }
 
-
-  // render() {
-  //   const { result, userInput, operation } = this.state;
-  //   return (
-  //     <form>
-  //       <input id="values" name="values" type="text" />
-  //       <select id="operation" name="operation">
-  //         <option value=""></option>
-  //         <option value="sum">sum</option>
-  //         <option value="average">average</option>
-  //         <option value="mode">mode</option>
-  //       </select>
-  //       <button type="submit">Calculate</button>
-  //     </form>
-  //   );
-  // }
+// render() {
+//   const { result, userInput, operation } = this.state;
+//   return (
+//     <form>
+//       <input id="values" name="values" type="text" />
+//       <select id="operation" name="operation">
+//         <option value=""></option>
+//         <option value="sum">sum</option>
+//         <option value="average">average</option>
+//         <option value="mode">mode</option>
+//       </select>
+//       <button type="submit">Calculate</button>
+//     </form>
+//   );
+// }
 // }
 
 export default Form;
