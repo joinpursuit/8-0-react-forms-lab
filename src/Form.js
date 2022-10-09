@@ -11,7 +11,7 @@ function Form({ setResult }) {
       return this.sum(values) / values.split(",").length;
     },
     mode: function (values) {
-      values = values.trim().replaceAll(",", "").replaceAll(" ", "");
+      values = values.replaceAll(",", "").replaceAll(" ", "");
       let mode = 0;
       let occurence = 1;
       values.split("").forEach((value) => {
@@ -26,24 +26,22 @@ function Form({ setResult }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target.values.value);
-    console.log(e.target.operation.value);
 
-    let values = e.target.values.value;
+    const values = e.target.values.value.trim();
     const operation = e.target.operation.value;
     if (!values || !operation) {
+      setErr(true);
       return setResult("Invalid input.");
     }
-    console.log(operations[operation](values));
 
     const result = operations[operation](values);
-    if (!isNaN(result)) {
+    if (isNaN(result)) {
+      setErr(true);
+      setResult("Invalid input.");
+    } else {
       e.target.reset();
       setErr(false);
       setResult(result);
-    } else {
-      setErr(true);
-      setResult("Invalid input.");
     }
   };
 
