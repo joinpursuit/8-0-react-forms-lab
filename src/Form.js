@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Form.css";
 
 function Form({ setResult }) {
+  const [err, setErr] = useState(false);
   const operations = {
     sum: function (values) {
       return values.split(",").reduce((a, b) => a + Number(b), 0);
@@ -36,13 +37,25 @@ function Form({ setResult }) {
     console.log(operations[operation](values));
 
     const result = operations[operation](values);
-    setResult(result);
+    if (!isNaN(result)) {
+      e.target.reset();
+      setErr(false);
+      setResult(result);
+    } else {
+      setErr(true);
+      setResult("Invalid input.");
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input id="values" name="values" type="text" />
-      <select id="operation" name="operation">
+      <input
+        id="values"
+        name="values"
+        type="text"
+        className={err ? "error" : ""}
+      />
+      <select id="operation" name="operation" className={err ? "error" : ""}>
         <option value=""></option>
         <option value="sum">sum</option>
         <option value="average">average</option>
