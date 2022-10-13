@@ -1,11 +1,83 @@
 import React from "react";
+import { useState } from "react";
 import "./Form.css";
 
-function Form() {
+function Form({ setResult }) {
+  const [input, setInput] = useState("");
+  const [selectOpt, setSelectOpt] = useState("");
+
+  function handleInput(e) {
+    const val = e.target.value;
+    setInput(val);
+  }
+
+  function inputConvert(inp, opt) {
+    const array = inp.split(",");
+    let answer = 0;
+    let total = array.reduce((a, b) => a + b, answer);
+
+    if (inp === "" || opt === "") {
+      return "Invalid input.";
+    }
+
+    if (opt === "sum") {
+      return total;
+    }
+
+    if (opt === "average") {
+      const avg = total / array.length;
+      return avg;
+    }
+
+    if (opt === "mode") {
+      const obj = {};
+      array.map((acc) => {
+        if (!obj[acc]) {
+          obj[acc] = 1;
+        } else {
+          obj[acc] += 1;
+        }
+      });
+
+      let freq = 0;
+      let freqKey;
+      for (let key in obj) {
+        if (obj[key] > freq) {
+          freq = obj[key];
+          freqKey = key;
+        }
+      }
+      return freqKey;
+    }
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setResult(inputConvert(input, selectOpt));
+  }
+
   return (
-    <form>
-      <input id="values" name="values" type="text" />
-      <select id="operation" name="operation">
+    <form
+      type="submit"
+      onSubmit={(event) => {
+        handleSubmit(event);
+      }}
+    >
+      <input
+        id="values"
+        name="values"
+        type="text"
+        value={input}
+        onChange={(e) => {
+          handleInput(e);
+        }}
+      />
+      <select
+        id="operation"
+        name="operation"
+        value={selectOpt}
+        onChange={(ev) => setSelectOpt(ev.target.value)}
+      >
         <option value=""></option>
         <option value="sum">sum</option>
         <option value="average">average</option>
