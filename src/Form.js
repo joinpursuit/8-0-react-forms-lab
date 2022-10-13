@@ -39,19 +39,16 @@ function Form({ setResult }) {
         }
       });
 
-      let freq;
+      let freq = 0;
       let freqKey;
       for (let key in obj) {
-        freq = obj[key];
-        freqKey = key;
+        if (obj[key] > freq) {
+          freq = obj[key];
+          freqKey = key;
+        }
       }
       return freqKey;
     }
-  }
-
-  function reset() {
-    setInput("");
-    setSelectOpt("");
   }
 
   function handleSubmit(e) {
@@ -79,7 +76,7 @@ function Form({ setResult }) {
         id="operation"
         name="operation"
         value={selectOpt}
-        onChange={(e) => setSelectOpt(e.target.value)}
+        onChange={(ev) => setSelectOpt(ev.target.value)}
       >
         <option value=""></option>
         <option value="sum">sum</option>
