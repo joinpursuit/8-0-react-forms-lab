@@ -12,25 +12,50 @@ const handleChange = (event) => {
 setArray(event.target.value.split(","))
 }
 
+let sum = 0 
+
 function calculateValue(){ 
-  let sum = 0 
     if(selectOption === "sum"){
       array.forEach((num) => {
-        sum += Number(num)
+       sum += Number(num)
      })
     }
-   if(selectOption === "average"){
-    array.forEach((num) => {
-     sum += Number(num)
-     return ((sum / array.length))
-    })
+   else if(selectOption === "average"){
+      let av = array.reduce((pv , av) => {
+       return (pv + Number(av)) 
+      }, 0)
+     sum = av / array.length
+     }
+
+  else if (selectOption === "mode"){
+      let object = {}
+
+  for (let i = 0; i < array.length; i++) {
+    if (object[array[i]]) {
+      object[array[i]] += 1
+    } else {
+      object[array[i]] = 1
+    }
   }
-     
-   document.querySelector("#number").innerHTML = sum === "number" ? sum : "Invalid input."
+  let biggestValue = -1
+   sum = -1
+
+  Object.keys(object).forEach(key => {
+    let value = object[key]
+    if (value > biggestValue) {
+      biggestValue = value
+     sum = key
+    }
+    return sum
+  })
+}
+
+   document.querySelector("#number").innerHTML = isNaN(sum)  ? "Invalid input" : sum
 }
 
   function reset(){
-    setArray("")
+  setArray("")
+   
     setSelectOption("")
   }
 
