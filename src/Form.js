@@ -2,15 +2,11 @@ import React from "react";
 import { useState } from "react";
 import "./Form.css";
 
-function Form() {
+function Form({ getResult }) {
   const [userInput, setUserInput] = useState([]);
   const [selectOption, setSelectOption] = useState("");
 
-  // function handleCalculate {
-
-  // }
-
-  // function handleInput(e) {
+  // function testForErrors(e) {
   //   let array = [e.target.value];
   //   console.log(array);
   //   if (!array.every((el) => typeof el === "number")) {
@@ -28,40 +24,42 @@ function Form() {
   }
 
   function doMath(e) {
-    let num = 0;
+    let num;
     e.preventDefault();
     if (selectOption === "sum") {
       num = userInput.reduce((acc, curr) => {
         return (acc += curr);
       }, 0);
       console.log(num);
-      return <h3>{num}</h3>;
     } else if (selectOption === "average") {
       let aver = userInput.reduce((acc, curr) => {
         return (acc += curr);
       }, 0);
-      console.log(aver / userInput.length);
+
       num = aver / userInput.length;
     } else if (selectOption === "mode") {
-      let item = userInput[0];
-      let ocurrencesMap = {};
+      let aNum = userInput[0];
+      let ocurrences = {};
 
       for (let i in userInput) {
         const current = userInput[i];
 
-        if (ocurrencesMap[current]) ocurrencesMap[current]++;
-        else ocurrencesMap[current] = 1;
+        if (ocurrences[current]) ocurrences[current]++;
+        else ocurrences[current] = 1;
 
-        if (ocurrencesMap[item] < ocurrencesMap[current]) item = current;
+        if (ocurrences[aNum] < ocurrences[current]) aNum = current;
       }
-      console.log(item);
 
-      num = item;
-      return {
-        item: item,
-        ocurrences: ocurrencesMap[item],
-      };
+      num = aNum;
+      // return {
+      //   item: aNum,
+      //   ocurrences: ocurrences[aNum],
+      // };
     }
+    if (isNaN(num)) {
+      num = "Invalid input.";
+    }
+    getResult(num);
   }
 
   return (
