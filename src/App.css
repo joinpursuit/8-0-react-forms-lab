@@ -1,1 +1,16 @@
 /* Add your own CSS! */
+body {
+  background: #7df9ff;
+}
+
+main {
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.2)
+  );
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.4),
+    -2px -2px 2px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  padding: 1rem 0;
+}

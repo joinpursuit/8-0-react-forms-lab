@@ -3,3 +3,10 @@ select.error {
   border: 1px solid red;
   outline: none !important;
 }
+
+input,
+select,
+button {
+  border-radius: 0.5rem;
+  border: none;
+}
