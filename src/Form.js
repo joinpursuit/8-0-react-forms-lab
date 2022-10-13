@@ -1,41 +1,48 @@
 import React from 'react';
 import "./Form.css";
 import {useState} from 'react'
+//Paired with Natasha
 
-function Form() {
-  const [values, setValues] = useState('')
+function Form({setResult}) {
+  //Might need result
   const [select, setSelect] = useState('')
+  const [arr, setArr] = useState([])
 
   const handleChange = (e) => {
-    const { value } = e.target
-    setValues(value)
+    setArr(e.target.value.split(",").map((e) => Number(e)))
   }
 
-  const handleSumbit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    // const values = e.target.values.value
-    
-    if (!select){
-      alert ("Invalid input")
-    } else return sum
-    //DONT LEAVE LIKE THIS ITS A TEST
+    setResult(numbers(arr, select))
+    // if(!numbers(arr, select)){
+    //   return 'Invalid input.'
+    // }
+   
   }
 
-  function sum (values) {
-    return values.split(',').reduce((a, b) => Number(a + b))
+  const numbers = () => {
+    let result = arr.reduce((a, b) =>{return (a+=b)}, 0)
+    if(select === "sum"){
+      return result 
+    }if (select === "average"){
+      return result / arr.length
+    }if (select === "mode"){
+       Math.mode(arr)
+      //Doesn't work
+    }
   }
-  //MAYBE MAKE A SWITCH STATEMENT?
 
   return (
-    <form onSubmit={handleSumbit}>
-      <input id="values" name="values" type="text" onChange={handleChange} value={values}/>
-      <select id="operation" name="operation" onChange={(e) => {setSelect(e.target.value)}} >
+    <form onSubmit={handleSubmit}>
+      <input id="values" name="values" type="text" onChange={handleChange} value={arr}/>
+      <select id="operation" name="operation" value={select} onChange={(e) => {setSelect(e.target.value)}} >
         <option value=""></option>
         <option value="sum">sum</option>
         <option value="average">average</option>
         <option value="mode">mode</option>
       </select>
-      <button type="submit">Calculate</button>
+      <button onChange={handleSubmit}type="submit">Calculate</button>
     </form>
   );
 }
