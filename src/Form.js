@@ -11,6 +11,9 @@ function Form({result, setResult}) {
   // select/option state
   const [selectOption, setSelectOption] = useState("")
 
+  // declare state for error class
+  const [error, setError] = useState(false)
+
   // Declare variables for elements on page select/input
   const select = document.querySelector(`select`)
   const input = document.querySelector(`input`)
@@ -73,13 +76,12 @@ function reset() {
     e.preventDefault()
     setResult(convertUserInput(userInput,selectOption))
     if(convertUserInput(userInput,selectOption) !== `Invalid input.`){
-      select.classList.remove(`error`)
-      input.classList.remove(`error`)
+      setError(false)
       reset()
     }
     else{
-      select.classList.toggle(`error`)
-      input.classList.toggle(`error`)
+      console.log(select, input)
+      setError(true)
     }
     
   }
@@ -90,13 +92,15 @@ function reset() {
       name="values" 
       type="text"
       value= {userInput} 
-      onChange={(event) => {handleUserInput(event)}  }/>
+      onChange={ (event) => {handleUserInput(event)} }
+      className= {error ? `error` : null}/>
 
       <select 
       id="operation" 
       name="operation"
       value={selectOption}
-      onChange={(event) => {setSelectOption(event.target.value)}}>
+      onChange={(event) => {setSelectOption(event.target.value)}}
+      className= {error ? `error` : null}>
         <option value=""></option>
         <option value="sum">sum</option>
         <option value="average">average</option>
