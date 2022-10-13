@@ -6,6 +6,7 @@ function App() {
   // set state to tranfer result
   const [myResult, setMyResult] = useState(``)
 
+  
   return (
     <main>
       <p>Enter each number in the array, separated by a ','</p>

@@ -11,6 +11,10 @@ function Form({result, setResult}) {
   // select/option state
   const [selectOption, setSelectOption] = useState("")
 
+  // Declare variables for elements on page select/input
+  const select = document.querySelector(`select`)
+  const input = document.querySelector(`input`)
+ 
   // Functions
 function handleUserInput(e) {
   const value = e.target.value
@@ -26,10 +30,10 @@ function convertUserInput(input, option) {
     
  // conditional for invalid input
   if(isNaN(total) || input === `` || option === ``){
-    
-      return 'Invalid input.'
+    return 'Invalid input.'
     }
-  // conditionals for option choice
+    
+// conditionals for option choice
   if(option === `sum`){
    return total
   }
@@ -59,9 +63,24 @@ function convertUserInput(input, option) {
   }
 }
 
+// reset form input functions
+function reset() {
+  setUserInput(``)
+  setSelectOption(``)
+}
+
   function handleSubmit(e) {
     e.preventDefault()
     setResult(convertUserInput(userInput,selectOption))
+    if(convertUserInput(userInput,selectOption) !== `Invalid input.`){
+      select.classList.remove(`error`)
+      input.classList.remove(`error`)
+      reset()
+    }
+    else{
+      select.classList.toggle(`error`)
+      input.classList.toggle(`error`)
+    }
     
   }
   return (
