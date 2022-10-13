@@ -1,7 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 import "./Form.css";
 import { useState } from "react";
-
 function Form() {
   const [selectOption, setSelectOption] = useState("");
   const [input, setInput] = useState([]);
@@ -11,22 +10,29 @@ function Form() {
   const numArr = (e) => {
     setInput(e.target.value.split(",").map((val) => Number(val)));
   };
-  const handleCalc = (e) => {
+  function handleCalc(e) {
     e.preventDefault();
     let result;
     if (selectOption === "sum") {
       result = input.reduce((acc, val) => (acc += val), 0);
     }
     if (selectOption === "average") {
+      result = input.reduce((acc, val) => (acc += val), 0);
       result /= input.length;
-      // } else {
-      //   result = input.filter((num) => {
-      //     num = result;
-      //   }).length;
+    } else if (selectOption === "mode") {
+      //! Create an empty arr for mode arr
+      //!
+      // result.sort();
+      let mode = input
+        .sort(
+          (a, b) =>
+            input.filter((num) => num === a).length -
+            input.filter((num) => num === b).length
+        )
+        .pop();
+      console.log(mode);
     }
-
-    console.log(result);
-  };
+  }
 
   return (
     <form onSubmit={handleCalc} type="submit">
