@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import "./Form.css";
 import { useState } from "react";
-function Form() {
+
+function Form({ setResult }) {
   const [selectOption, setSelectOption] = useState("");
   const [input, setInput] = useState([]);
-  console.log(input);
-  //!input where the user can enter comma-separated number values in an array.
-  //! Values
+  // console.log(input);
+  // console.log(selectOption);
+
   const numArr = (e) => {
     setInput(e.target.value.split(",").map((val) => Number(val)));
   };
@@ -15,13 +16,10 @@ function Form() {
     let result;
     if (selectOption === "sum") {
       result = input.reduce((acc, val) => (acc += val), 0);
-    }
-    if (selectOption === "average") {
-      result = input.reduce((acc, val) => (acc += val), 0);
-      result /= input.length;
+    } else if (selectOption === "average") {
+      result = input.reduce((acc, val) => (acc += val), 0) / input.length;
+      // result /= input.length;
     } else if (selectOption === "mode") {
-      //! Create an empty arr for mode arr
-      //!
       // result.sort();
       let mode = input
         .sort(
@@ -30,8 +28,13 @@ function Form() {
             input.filter((num) => num === b).length
         )
         .pop();
-      console.log(mode);
+      result = mode;
     }
+    console.log("result:", result);
+    if (input === isNaN || selectOption === "") {
+      result = "Invalid input.";
+    }
+    setResult(result);
   }
 
   return (
@@ -57,6 +60,8 @@ function Form() {
       <button onChange={handleCalc} type="submit">
         Calculate
       </button>
+      <br />
+      <h3>{}</h3>
     </form>
   );
 }
