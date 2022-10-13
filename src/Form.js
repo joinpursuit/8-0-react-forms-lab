@@ -42,13 +42,13 @@ function Form({ setResult }) {
         }
       });
 
-      let modeNum = 0;
-      let modeKey;
+      let freq;
+      let freqKey;
       for (let key in obj) {
-        modeNum = obj[key];
-        modeKey = key;
+        freq = obj[key];
+        freqKey = key;
       }
-      return modeKey;
+      return freqKey;
     }
   }
 

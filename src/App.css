@@ -1,1 +1,15 @@
 /* Add your own CSS! */
+
+main {
+  background-image: linear-gradient(
+    rgb(255, 255, 255),
+    rgb(141, 141, 229),
+    rgb(255, 255, 255)
+  );
+  width: 100vw;
+  height: 100vh;
+  color: blue;
+  border-radius: 50px;
+  margin-top: 20px;
+  font-family: fantasy;
+}
