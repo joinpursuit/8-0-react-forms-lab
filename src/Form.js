@@ -1,8 +1,7 @@
-import React from "react";
 import { useState } from "react";
 import "./Form.css";
 
-function Form(props) {
+function Form({ changeResult }) {
   const [numbers, setNumbers] = useState([]);
   const [operator, setOperator] = useState("");
 
@@ -32,18 +31,18 @@ function Form(props) {
         }
       });
       for (const k in result) {
-        // console.log(k, result[k])
+        console.log(k, result[k]);
         if (modeOccurrence < result[k]) {
           modeOccurrence = result[k];
           modeNum = k;
         }
       }
       result = modeNum;
-      console.log("modeNum", modeNum);
-      console.log("modeOccurrence", modeOccurrence);
     }
-    props.changeResult(result);
-    console.log("result", result);
+    if (isNaN(result)) {
+      result = "Invalid input.";
+    }
+    changeResult(result);
   };
 
   return (

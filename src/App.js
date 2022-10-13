@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Form from "./Form";
 import "./App.css";
 
 function App() {
-  const [appResult, setAppResult] = useState("");
+  const [result, setResult] = useState("");
 
   return (
     <main>
       <p>Enter each number in the array, separated by a ','</p>
-      <Form changeResult={(appResult) => setAppResult(appResult)} />
+      <Form changeResult={(res) => setResult(res)} />
       <section id="result">
-        <p>{appResult}</p>
+        <p>{result}</p>
       </section>
     </main>
   );
