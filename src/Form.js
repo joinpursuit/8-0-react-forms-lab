@@ -4,7 +4,6 @@ import {useState} from 'react'
 //Paired with Natasha
 
 function Form({setResult}) {
-  //Might need result
   const [select, setSelect] = useState('')
   const [arr, setArr] = useState([])
 
@@ -13,12 +12,13 @@ function Form({setResult}) {
   }
 
   const handleSubmit = (e) => {
+    let values = e.target.values.value;
+    const operation = e.target.operation.value;
     e.preventDefault()
     setResult(numbers(arr, select))
-    // if(!numbers(arr, select)){
-    //   return 'Invalid input.'
-    // }
-   
+    if(!numbers(arr, select)|| !values ||!operation){
+      return setResult('Invalid input.')
+    }
   }
 
   const numbers = () => {
