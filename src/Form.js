@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Form.css";
 import {useState} from 'react'
-//Paired with Natasha
+
 
 function Form({setResult}) {
   const [select, setSelect] = useState('')
@@ -16,7 +16,7 @@ function Form({setResult}) {
     const operation = e.target.operation.value;
     e.preventDefault()
     setResult(numbers(arr, select))
-    if(!numbers(arr, select)|| !values ||!operation){
+    if(!values||!operation){
       return setResult('Invalid input.')
     }
   }
@@ -28,8 +28,11 @@ function Form({setResult}) {
     }if (select === "average"){
       return result / arr.length
     }if (select === "mode"){
-       Math.mode(arr)
-      //Doesn't work
+      let mode, obj = {};
+      arr.forEach(e => obj[e] = (obj[e] || 0) + 1);
+      //The page works without this but the test doesn't. EXPLAIN
+      mode = arr.reduce((a, b) => obj[b] > obj[a] ? b : a);
+      return [mode]
     }
   }
 
