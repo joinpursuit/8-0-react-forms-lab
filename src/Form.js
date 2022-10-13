@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import "./Form.css";
 
-function Form({ setResult }) {
+function Form({setResult }) {
   const [arr, setArr] = useState([])
   const [select, setSelect] = useState('')
 
@@ -11,21 +11,18 @@ function Form({ setResult }) {
   }
 
   const submitForm = (e) => {
+    let values = e.target.values.value;
+    const operation = e.target.operation.value;
     e.preventDefault()
     setResult(numbers(arr, select))
-    if(!numbers(arr, select)){
-      return 'Invalid input.'
+    if(!values ||!operation){
+      return setResult('Invalid input.')
     }
-   
   }
 
 
 
-  const numbers = (option) => {
-    console.log(option)
-if (isNaN(option)) {
-  console.error('Invalid input.');
-}
+  const numbers = () => {
     let result = arr.reduce((a, b) =>{return (a+=b)}, 0)
 
     if(select === "sum"){
@@ -33,7 +30,9 @@ if (isNaN(option)) {
     }if(select === "average"){
        return result / arr.length
     }else if (select === "mode"){
-      return Math.mode(arr)
+      return arr.find((mode) =>{
+
+      })
     }
   }
   return (
