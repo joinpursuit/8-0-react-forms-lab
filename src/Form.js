@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+// import React, { Component } from "react";
 import "./Form.css";
 import { useState } from "react";
 
@@ -13,14 +13,14 @@ function Form({ setResult }) {
   };
   function handleCalc(e) {
     e.preventDefault();
+    setInput("");
+    setSelectOption("");
     let result;
     if (selectOption === "sum") {
       result = input.reduce((acc, val) => (acc += val), 0);
     } else if (selectOption === "average") {
       result = input.reduce((acc, val) => (acc += val), 0) / input.length;
-      // result /= input.length;
     } else if (selectOption === "mode") {
-      // result.sort();
       let mode = input
         .sort(
           (a, b) =>
@@ -30,12 +30,15 @@ function Form({ setResult }) {
         .pop();
       result = mode;
     }
-    console.log("result:", result);
-    if (input === isNaN || selectOption === "") {
+    if (input === isNaN || !selectOption || !input.length) {
       result = "Invalid input.";
     }
     setResult(result);
   }
+  // const resetFunc = () => {
+  //   setInput("");
+  //   selectOption("");
+  // };
 
   return (
     <form onSubmit={handleCalc} type="submit">
@@ -57,11 +60,9 @@ function Form({ setResult }) {
         <option value="average">average</option>
         <option value="mode">mode</option>
       </select>
-      <button onChange={handleCalc} type="submit">
+      <button onClick={handleCalc} type="submit">
         Calculate
       </button>
-      <br />
-      <h3>{}</h3>
     </form>
   );
 }
