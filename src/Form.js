@@ -74,7 +74,6 @@ function Form({ result, setResult }) {
       setError(false);
       reset();
     } else {
-      console.log(select, input);
       setError(true);
     }
   }
