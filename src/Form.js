@@ -36,6 +36,8 @@ function Form({setResult}) {
     }
   }
 
+  //IF BONUS: Make reset function. Create Errors in state
+
   return (
     <form onSubmit={handleSubmit}>
       <input id="values" name="values" type="text" onChange={handleChange} value={arr}/>
