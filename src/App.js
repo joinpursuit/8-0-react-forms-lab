@@ -8,7 +8,9 @@ function App() {
       <p>Enter each number in the array, separated by a ','</p>
       <Form />
       <section id="result">
-        <p></p>
+        <p id="number">
+          {<calculateValue/>}
+        </p>
       </section>
     </main>
   );
