@@ -6,26 +6,16 @@ function Form({ getResult }) {
   const [userInput, setUserInput] = useState([]);
   const [selectOption, setSelectOption] = useState("");
 
-  // function testForErrors(e) {
-  //   let array = [e.target.value];
-  //   console.log(array);
-  //   if (!array.every((el) => typeof el === "number")) {
-  //     alert("Invalid input.");
-  //   } else {
-  //     setUserInput([e.target.value]);
-  //   }
-  // }
-
   function convertInput(e) {
     let input = e.target.value;
     let inputArr = input.split(",");
     setUserInput(inputArr.map((el) => Number(el)));
-    // console.log(userInput);
   }
 
   function doMath(e) {
     let num;
     e.preventDefault();
+
     if (selectOption === "sum") {
       num = userInput.reduce((acc, curr) => {
         return (acc += curr);
@@ -51,12 +41,8 @@ function Form({ getResult }) {
       }
 
       num = aNum;
-      // return {
-      //   item: aNum,
-      //   ocurrences: ocurrences[aNum],
-      // };
     }
-    if (isNaN(num)) {
+    if (isNaN(num) || selectOption === "") {
       num = "Invalid input.";
     }
     getResult(num);
