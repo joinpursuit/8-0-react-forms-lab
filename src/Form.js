@@ -4,12 +4,12 @@ import { operations } from "./operations";
 
 function Form({ setResult }) {
   const [err, setErr] = useState(false);
+  const [values, setValues] = useState("");
+  const [operation, setOperation] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const values = e.target.values.value.trim();
-    const operation = e.target.operation.value;
     if (!values || !operation) {
       setErr(true);
       return setResult("Invalid input.");
@@ -33,8 +33,14 @@ function Form({ setResult }) {
         name="values"
         type="text"
         className={err ? "error" : ""}
+        onChange={(e) => setValues(e.target.value)}
       />
-      <select id="operation" name="operation" className={err ? "error" : ""}>
+      <select
+        id="operation"
+        name="operation"
+        className={err ? "error" : ""}
+        onChange={(e) => setOperation(e.target.value)}
+      >
         <option value=""></option>
         <option value="sum">sum</option>
         <option value="average">average</option>
