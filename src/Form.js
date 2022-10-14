@@ -6,52 +6,63 @@ function Form({ changeResult }) {
   const [operator, setOperator] = useState("");
 
   const getNumbers = (e) => {
-    setNumbers(e.target.value.split(",").map((e) => Number(e)));
+    setNumbers(
+      e.target.value ? e.target.value.split(",").map((e) => Number(e)) : []
+    );
   };
 
   const calculate = (event) => {
     event.preventDefault();
-    let result;
-    let modeNum;
-    let modeOccurrence = 0;
-    if (operator === "sum" || operator === "average") {
-      result = numbers.reduce((acc, el) => {
-        return (acc += el);
-      }, 0);
-      if (operator === "average") {
-        result /= numbers.length;
-      }
-    } else if (operator === "mode") {
-      result = {};
-      numbers.forEach((e) => {
-        if (result[e]) {
-          result[e] += 1;
-        } else {
-          result[e] = 1;
+    if (!numbers.length || operator === "") {
+      changeResult("Invalid input.");
+    } else {
+      let result;
+      let modeNum;
+      let modeOccurrence = 0;
+      if ((numbers.length && operator === "sum") || operator === "average") {
+        result = numbers.reduce((acc, el) => {
+          return (acc += el);
+        }, 0);
+        if (operator === "average") {
+          result /= numbers.length;
         }
-      });
-      for (const k in result) {
-        console.log(k, result[k]);
-        if (modeOccurrence < result[k]) {
-          modeOccurrence = result[k];
-          modeNum = k;
+      } else if (operator === "mode" && numbers.length) {
+        result = {};
+        numbers.forEach((e) => {
+          if (result[e]) {
+            result[e] += 1;
+          } else {
+            result[e] = 1;
+          }
+        });
+        for (const k in result) {
+          if (modeOccurrence < result[k]) {
+            modeOccurrence = result[k];
+            modeNum = k;
+          }
         }
+        result = modeNum;
       }
-      result = modeNum;
+      if (isNaN(result)) {
+        changeResult("Invalid input.");
+      } else {
+        changeResult(result);
+        setOperator("");
+        setNumbers("");
+      }
     }
-    if (isNaN(result)) {
-      result = "Invalid input.";
-    }
-    changeResult(result);
   };
 
   return (
     <form onSubmit={calculate}>
-      <input id="values" name="values" type="text" onChange={getNumbers} />
+      <input id="values" name="values" type="text" onChange={getNumbers} 
+      // value={numbers}
+      />
       <select
         id="operation"
         name="operation"
         onChange={(e) => setOperator(e.target.value)}
+        value={operator}
       >
         <option value=""></option>
         <option value="sum">sum</option>
