@@ -16,7 +16,21 @@ function Form(props) {
 
   //Errors
   const errors = () => {
-    // typeof userTextBox !== "number" ? alert("invalid input") : null;
+    numArr.forEach((num) => {
+      console.log(num);
+      if (isNaN(num)) {
+        props.changeResult("Invalid input.");
+      }
+    });
+    if (numArr.length === undefined || numArr.length === 0 || mySelect === "") {
+      props.changeResult("Invalid input.");
+    }
+    // if (
+    //   numArr.length === undefined ||
+    //   (numArr.length === 0 && mySelect !== "")
+    // ) {
+    //   props.changeResult("Invalid input.");
+    // }
   };
 
   const convertToNumbers = (e) => {
@@ -33,18 +47,24 @@ function Form(props) {
 
     let modeArr = [];
     if (mySelect === "sum") {
-      // console.log(numArr);
       sum = numArr.reduce((acc, num) => {
         return (acc += num);
       }, 0);
       props.changeResult(sum);
+      if (isNaN(sum)) {
+        props.changeResult("Invalid input.");
+      }
     }
+
     if (mySelect === "average") {
       sum = numArr.reduce((acc, num) => {
         return (acc += num);
       }, 0);
       average = sum / numArr.length;
       props.changeResult(average);
+      if (isNaN(average)) {
+        props.changeResult("Invalid input.");
+      }
     }
 
     if (mySelect === "mode") {
@@ -64,14 +84,17 @@ function Form(props) {
         }
       }
       props.changeResult(modeNum);
+      if (isNaN(modeNum)) {
+        props.changeResult("Invalid input.");
+      }
     }
   };
 
   //Submit
   const handleSubmit = (e) => {
+    errors();
     e.preventDefault();
     calculate();
-    // console.log(sum);
   };
 
   //********* RETURN ********/
