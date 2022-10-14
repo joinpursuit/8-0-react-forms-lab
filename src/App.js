@@ -1,6 +1,6 @@
-import React from "react";
-import Form from "./Form";
-import "./App.css";
+import React from "react"
+import Form from "./Form"
+import "./App.css"
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <p></p>
       </section>
     </main>
-  );
+  )
 }
 
-export default App;
+export default App
