@@ -36,17 +36,17 @@ function Form({ getResult }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    validateArray(inputArray)
-      ? calculateResult(inputArray)
-      : getResult("Invalid input.");
-
-    setInputStr("");
-    setOperation("");
+    if (validateArray(inputArray)) {
+      calculateResult(inputArray);
+      setInputStr("");
+      setOperation("");
+    } else getResult("Invalid input.");
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <input
+        className={!validateArray(inputArray) && "error"}
         onChange={handleInputChange}
         id="values"
         name="values"
@@ -54,6 +54,7 @@ function Form({ getResult }) {
         value={inputStr}
       />
       <select
+        className={!validateArray(inputArray) && "error"}
         onChange={handleSelectChange}
         id="operation"
         name="operation"
