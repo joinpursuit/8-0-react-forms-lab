@@ -1,5 +1,5 @@
 main {
-  background-color: rgb(107, 186, 186);
+  background-color: rgb(222, 219, 200);
   border-radius: 12px;
   margin-top: 30px;
   padding: 20px;
@@ -10,9 +10,13 @@ main {
 body {
   background: repeating-linear-gradient(
     to right,
-    #f1ce92,
-    #ecc88b 10px,
-    #cdbb9b 10px,
-    #e5dac7 20px
+    #a2cfe3,
+    #6ebfd4 10px,
+    #9bc3cd 10px,
+    #6b9baa 20px
   );
+}
+
+.res {
+  color: rgb(101, 47, 47);
 }

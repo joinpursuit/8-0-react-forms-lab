@@ -10,7 +10,7 @@ function App() {
       <p>Enter each number in the array, separated by a ','</p>
       <Form getResult={(x) => setGetCalc(x)} />
       <section id="result">
-        <p>{getCalc}</p>
+        <p className="res">{getCalc}</p>
       </section>
     </main>
   );
