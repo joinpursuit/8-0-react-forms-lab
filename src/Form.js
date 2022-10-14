@@ -12,6 +12,11 @@ function Form({ getResult }) {
     setUserInput(inputArr.map((el) => Number(el)));
   }
 
+  // function reset() {
+  //   setUserInput("");
+  //   setSelectOption("");
+  // }
+
   function doMath(e) {
     let num;
     e.preventDefault();
@@ -20,12 +25,12 @@ function Form({ getResult }) {
       num = userInput.reduce((acc, curr) => {
         return (acc += curr);
       }, 0);
-      console.log(num);
+
+      // console.log(num);
     } else if (selectOption === "average") {
       let aver = userInput.reduce((acc, curr) => {
         return (acc += curr);
       }, 0);
-
       num = aver / userInput.length;
     } else if (selectOption === "mode") {
       let aNum = userInput[0];
