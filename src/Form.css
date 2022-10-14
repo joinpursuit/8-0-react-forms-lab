@@ -1,5 +1,24 @@
 input.error,
 select.error {
-  border: 1px solid red;
+  border: 1px solid rgb(237, 177, 177);
   outline: none !important;
+}
+
+input {
+  border-radius: 8px;
+}
+input:hover {
+  background-color: bisque;
+}
+
+button {
+  border-radius: 8px;
+  background-color: rgb(241, 234, 157);
+}
+button:hover {
+  background-color: rgb(205, 178, 242);
+}
+
+body {
+  background-color: rgb(242, 236, 236);
 }
