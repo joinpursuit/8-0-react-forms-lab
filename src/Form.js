@@ -1,13 +1,32 @@
 import React from "react";
 import { useState } from "react";
+import validateArray from "./helpers/validateArray";
+import getMode from "./helpers/getMode";
 import "./Form.css";
 
-function Form() {
+function Form({ getResult }) {
   const [inputStr, setInputStr] = useState("");
+  const [inputArray, setInputArray] = useState([]);
   const [operation, setOperation] = useState("");
 
+  function calculateResult(array) {
+    if (operation === "sum") {
+      const res = array.reduce((acc, el) => acc + el);
+      getResult(res);
+    } else if (operation === "average") {
+      const res = array.reduce((acc, el) => acc + el) / array.length;
+      getResult(res);
+    } else if (operation === "mode") {
+      const res = getMode(array);
+      getResult(res);
+    }
+  }
+
   function handleInputChange(e) {
-    setInputStr(e.target.value);
+    const str = e.target.value;
+    setInputStr(str);
+    const array = str.split(",").map((el) => parseInt(el));
+    setInputArray(array);
   }
 
   function handleSelectChange(e) {
@@ -16,6 +35,10 @@ function Form() {
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    validateArray(inputArray)
+      ? calculateResult(inputArray)
+      : getResult("Invalid input.");
 
     setInputStr("");
     setOperation("");
