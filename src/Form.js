@@ -1,11 +1,65 @@
 import React from "react";
+import { useState } from "react";
+import validateArray from "./helpers/validateArray";
+import getMode from "./helpers/getMode";
 import "./Form.css";
 
-function Form() {
+function Form({ getResult }) {
+  const [inputStr, setInputStr] = useState("");
+  const [inputArray, setInputArray] = useState([]);
+  const [operation, setOperation] = useState("");
+
+  function calculateResult(array) {
+    if (operation === "sum") {
+      const res = array.reduce((acc, el) => acc + el);
+      getResult(res);
+    } else if (operation === "average") {
+      const res = array.reduce((acc, el) => acc + el) / array.length;
+      getResult(res);
+    } else if (operation === "mode") {
+      const res = getMode(array);
+      getResult(res);
+    }
+  }
+
+  function handleInputChange(e) {
+    const str = e.target.value;
+    setInputStr(str);
+    const array = str.split(",").map((el) => parseInt(el));
+    setInputArray(array);
+  }
+
+  function handleSelectChange(e) {
+    setOperation(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (validateArray(inputArray)) {
+      calculateResult(inputArray);
+      setInputStr("");
+      setOperation("");
+    } else getResult("Invalid input.");
+  }
+
   return (
-    <form>
-      <input id="values" name="values" type="text" />
-      <select id="operation" name="operation">
+    <form onSubmit={handleSubmit}>
+      <input
+        className={!validateArray(inputArray) && "error"}
+        onChange={handleInputChange}
+        id="values"
+        name="values"
+        type="text"
+        value={inputStr}
+      />
+      <select
+        className={!validateArray(inputArray) && "error"}
+        onChange={handleSelectChange}
+        id="operation"
+        name="operation"
+        value={operation}
+      >
         <option value=""></option>
         <option value="sum">sum</option>
         <option value="average">average</option>
