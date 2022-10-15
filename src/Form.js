@@ -2,43 +2,78 @@ import React from "react"
 import { useState } from "react"
 import "./Form.css"
 
-function Form() {
+function Form({ result, setResults }) {
   // creating state for input values
   const [inputBox, setInputBox] = useState("")
-  const [myselectOption, setSelectOption] = useState("")
+  const [select, setSelectOption] = useState("")
+  const [error, setErrors] = useState(false)
 
   function handleTextChange(event) {
     setInputBox(event.target.value)
   }
 
-  function myAlgo() {
+  function myAlgo(inputBox) {
     let arrayInput = inputBox.split(",")
-    let sum = 0
-    if (myselectOption === "sum") {
-      arrayInput.reduce((acc, curr) => {
-        return Number(acc) + Number(curr)
-      }, sum)
-    } else if (myselectOption === "average") {
-      arrayInput.reduce((acc, curr) => {
-        return Number(acc) + Number(curr) / arrayInput.length
+    const myInputAlgo = arrayInput.reduce((a, b) => {
+      return Number(a) + Number(b)
+    }, 0)
+
+    if (!inputBox || !select || inputBox === !Number) {
+      setErrors(true)
+      return setResults("Invalid input.")
+    }
+
+    if (select === "sum") {
+      return myInputAlgo
+    }
+    if (select === "average") {
+      return myInputAlgo / arrayInput.length
+    }
+    if (select === "mode") {
+      let obj = {}
+      arrayInput.forEach((element) => {
+        if (!obj[element]) {
+          obj[element] = 1
+        } else {
+          obj[element] += 1
+        }
       })
-    } else if (myselectOption === "mode") {
+
+      let inputValue = 0
+      let mykey
+      for (let newkey in obj) {
+        if (obj[newkey] > inputValue) {
+          mykey = newkey
+          inputValue = obj[newkey]
+        }
+      }
+      return mykey
     }
   }
 
   function handleSubmit(event) {
     event.preventDefault()
+    setResults(myAlgo(inputBox))
+    if (!inputBox || !select || inputBox === !Number) {
+      setErrors(true)
+      return setResults("Invalid input.")
+    }
     reset()
-    myAlgo()
+    setErrors(false)
+    if (result === "Invalid input.") {
+      reset(result)
+    }
   }
 
   function reset() {
     setInputBox(" ")
+    setSelectOption(" ")
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <input
+        className={error ? "error" : null}
         id="values"
         name="values"
         type="text"
@@ -46,9 +81,10 @@ function Form() {
         onChange={handleTextChange}
       />
       <select
+        className={error ? "error" : null}
         id="operation"
         name="operation"
-        value={myselectOption}
+        value={select}
         onChange={(event) => setSelectOption(event.target.value)}
       >
         <option value=""></option>
@@ -60,5 +96,4 @@ function Form() {
     </form>
   )
 }
-
 export default Form
