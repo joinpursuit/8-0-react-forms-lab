@@ -8,10 +8,9 @@ export const operations = {
     return this.sum(numbers) / numbers.split(",").length;
   },
   mode: function (numbers) {
-    numbers = numbers.replaceAll(",", "");
     let mode = 0;
     let occurence = 1;
-    numbers.split("").forEach((num) => {
+    numbers.split(",").forEach((num) => {
       if (numbers.split(num).length > occurence) {
         mode = num;
         occurence = numbers.split(num).length;

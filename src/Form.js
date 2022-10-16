@@ -17,6 +17,7 @@ function Form({ setResult }) {
     const result = operations[operation](numbers);
     if (isNaN(result)) {
       setError(true);
+      // e.target.reset();
       setResult("Invalid input.");
     } else {
       e.target.reset();
