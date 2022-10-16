@@ -3,3 +3,8 @@ select.error {
   border: 1px solid red;
   outline: none !important;
 }
+
+
+.hide{
+  display: none;
+}
