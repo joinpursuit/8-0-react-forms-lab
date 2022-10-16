@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Form.css";
 
+
 function Form() {
+
+const [userInput, setUserInput] = useState("")
+
+const [userSelect, setUserSelect] = useState("")
+
+  function handleInputChange (e){
+setUserInput(e.target.value)
+  }
+
+function handleSelectChange (e){
+  setUserSelect(e.target.value)
+}
+
+ function handleSubmit (e){
+if (userSelect === "sum"){
+
+}
+ }
+
   return (
-    <form>
-      <input id="values" name="values" type="text" />
-      <select id="operation" name="operation">
+    <form onSubmit={handleSubmit}>
+      <input onChange={handleInputChange} id="values" name="values" type="text" value={userInput} />
+      <select id="operation" name="operation" onChange={handleSelectChange} value={userSelect}>
         <option value=""></option>
         <option value="sum">sum</option>
         <option value="average">average</option>
