@@ -5,45 +5,60 @@ import { useState } from "react";
 function Form() {
   const [userInput, setUserInput] = useState("");
   const [selection, SetUserSelection] = useState("");
-  const [err, setErr] = useState("");
+  //const [err, setErr] = useState("");
+  const [finalResult, setFinalResult] = useState("")
+
+  //let sum = 0;
+  let result;
+  let obj = {};
 
   const handleUserInput = (e) => {
-    setUserInput(e.target.value.split(","));
-    console.log(e.target.value.split(","));
+    setUserInput(e.target.value);
+    console.log(e.target.value);
   };
 
-  const handleUserS = (e) => {
+  const handleUserSel = (e) => {
     SetUserSelection(e.target.value);
   };
 
+  function mode(arr) {
+    return arr
+      .sort(
+        (a, b) =>
+          arr.filter((v) => v === a).length - arr.filter((v) => v === b).length
+      )
+      .pop();
+  }
+
   const form = (e) => {
     e.preventDefault();
-    if (!selection || !userInput || userInput !== Number) {
-      setErr("Invalid input");
-      console.log(err);
+    let inputArr = userInput.split(',')
+    let isValid = true
+    for(let input of inputArr) {
+      if (isNaN(Number(input))) {
+        isValid = false
+        break;
+      }
     }
-    let sum = 0;
-    let result;
-    //let obj = {}
-    if (selection === "sum") {
-      userInput.forEach((input) => {
-        sum += Number(input);
+    if (!selection || !userInput || !isValid) {
+      result  = "Invalid input.";
+      
+    }else if (selection === "sum") {
+      result = 0
+     inputArr.forEach((input) => {
+        result += Number(input);
       });
-      console.log(sum);
+      //console.log(sum);
     }
-    if (selection === "average") {
-      result = userInput.reduce((a, b) => a + b, 0) / userInput.length;
+    else if (selection === "average") {
+      result = inputArr.reduce((a, b) => a + b, 0) / inputArr.length;
       console.log(result);
     }
-    // if(selection === 'mode') {
-    // userInput.forEach((input) => {
-    //   if(obj[userInput]) {
-    //     obj[userInput] += 1
-    //   }else{
-    //     obj[userInput] = 1
-    //   }
-    // })
-    // }
+    else if  (selection === "mode") {
+      result =  mode(inputArr)
+    }
+    console.log(result);
+    setFinalResult(result)
   };
 
   return (
@@ -53,7 +68,6 @@ function Form() {
         id="values"
         name="values"
         value={userInput}
-        className={err}
         onChange={handleUserInput}
       />
 
@@ -61,8 +75,7 @@ function Form() {
         id="operation"
         name="operation"
         value={selection}
-        className={err}
-        onChange={handleUserS}
+        onChange={handleUserSel}
       >
         <option value=""></option>
         <option value="sum">sum</option>
@@ -71,6 +84,7 @@ function Form() {
       </select>
 
       <button type="submit">Calculate</button>
+      <p>{finalResult}</p>
     </form>
   );
 }
@@ -81,5 +95,3 @@ export default Form;
 // const inputBody = () => {
 //   //setUserInput([userInput]) //setUserInput will place userInput into an array to  iterate the input and perform the calculation on submit
 // };
-
-
