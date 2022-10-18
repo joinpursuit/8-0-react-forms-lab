@@ -5,10 +5,10 @@ import { useState } from "react";
 function Form() {
   const [userInput, setUserInput] = useState("");
   const [selection, SetUserSelection] = useState("");
-  //const [err, setErr] = useState("");
+ 
   const [finalResult, setFinalResult] = useState("")
 
-  //let sum = 0;
+ 
   let result;
   let obj = {};
 
@@ -48,7 +48,7 @@ function Form() {
      inputArr.forEach((input) => {
         result += Number(input);
       });
-      //console.log(sum);
+     
     }
     else if (selection === "average") {
       result = inputArr.reduce((a, b) => a + b, 0) / inputArr.length;
@@ -88,5 +88,5 @@ function Form() {
     </form>
   );
 }
-//export form here 
+//export form here ! 
 export default Form;
