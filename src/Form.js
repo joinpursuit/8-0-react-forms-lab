@@ -6,7 +6,7 @@ function Form() {
   const [userInput, setUserInput] = useState("");
   const [selection, SetUserSelection] = useState("");
   //const [err, setErr] = useState("");
-  const [finalResult, setFinalResult] = useState("")
+  const [finalResult, setFinalResult] = useState("");
 
   //let sum = 0;
   let result;
@@ -32,33 +32,30 @@ function Form() {
 
   const form = (e) => {
     e.preventDefault();
-    let inputArr = userInput.split(',')
-    let isValid = true
-    for(let input of inputArr) {
+    let inputArr = userInput.split(",");
+    let isValid = true;
+    for (let input of inputArr) {
       if (isNaN(Number(input))) {
-        isValid = false
+        isValid = false;
         break;
       }
     }
     if (!selection || !userInput || !isValid) {
-      result  = "Invalid input.";
-      
-    }else if (selection === "sum") {
-      result = 0
-     inputArr.forEach((input) => {
-        result += Number(input);
-      });
-      //console.log(sum);
-    }
-    else if (selection === "average") {
-      result = inputArr.reduce((a, b) => a + b, 0) / inputArr.length;
+      result = "Invalid input.";
+    } else if (selection === "sum") {
+      result = inputArr.map((num) => Number(num)).reduce((a, b) => a + b, 0);
+
+    } else if (selection === "average") {
+      result =
+        inputArr.map((num) => Number(num)).reduce((a, b) => a + b, 0) /
+        inputArr.length;
       console.log(result);
-    }
-    else if  (selection === "mode") {
-      result =  mode(inputArr)
+      
+    } else if (selection === "mode") {
+      result = mode(inputArr);
     }
     console.log(result);
-    setFinalResult(result)
+    setFinalResult(result);
   };
 
   return (
