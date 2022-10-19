@@ -1,1 +1,4 @@
 /* Add your own CSS! */
+.error {
+    border: solid 1px red;
+}
