@@ -20,7 +20,8 @@ function Form({ setResult }) {
       setErr(true);
       setResult("Invalid input.");
     } else {
-      e.target.reset();
+      setValues("");
+      setOperation("");
       setErr(false);
       setResult(result);
     }
@@ -33,12 +34,14 @@ function Form({ setResult }) {
         name="values"
         type="text"
         className={err ? "error" : ""}
+        value={values}
         onChange={(e) => setValues(e.target.value)}
       />
       <select
         id="operation"
         name="operation"
         className={err ? "error" : ""}
+        value={operation}
         onChange={(e) => setOperation(e.target.value)}
       >
         <option value=""></option>
