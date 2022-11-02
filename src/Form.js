@@ -3,7 +3,7 @@ import "./Form.css";
 
 function Form({handleSelectChange, handleSubmit, handleNumbersChange}) {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} >
       <input id="values" name="values" type="text" onChange={handleNumbersChange}/>
       <select id="operation" name="operation" onChange={handleSelectChange}>
         <option value=""></option>
@@ -11,7 +11,7 @@ function Form({handleSelectChange, handleSubmit, handleNumbersChange}) {
         <option value="average">average</option>
         <option value="mode">mode</option>
       </select>
-      <button type="submit" >Calculate</button>
+      <input type="submit" value="Calculate" />
     </form>
   );
 }
