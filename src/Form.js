@@ -37,6 +37,7 @@ function Form() {
       sumAcc += Number(splitInputArr[i])
     }
     console.log('Sum: ',sumAcc)
+    setCalculation(sumAcc)
     }
 
     if(operator === 'average') {
@@ -68,6 +69,12 @@ function Form() {
         <option value="mode">mode</option>
       </select>
       <button type="submit">Calculate</button>
+      <div>
+        { calculation > 0 
+          ? <h3>Calculation: {calculation} </h3>
+          : null
+        }
+      </div>
     </form>
   );
 }
