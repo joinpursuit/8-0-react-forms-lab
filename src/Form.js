@@ -11,11 +11,8 @@ function Form({ setResult }) {
     let value = input.split(',');
     let num = 0;
     let doReduce = value.reduce((curr, acc) => {
-      // console.log(curr);
-      // console.log(acc);
       return Number(curr) + Number(acc);
     }, num);
-    // console.log(doReduce);
     console.log(userInput);
     if (userInput === '' || userOption === '' || isNaN(doReduce)) {
       return 'Invalid input.';
@@ -40,12 +37,9 @@ function Form({ setResult }) {
       console.log(obj);
 
       for (let key in obj) {
-        // console.log(obj[key]);
-        // console.log(occurrence);
         if (obj[key] > occurrence) {
           occurrence = obj[key];
           objKey = key;
-          // console.log(occurrence);
           console.log(objKey);
         }
       }
