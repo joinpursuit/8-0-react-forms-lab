@@ -5,6 +5,22 @@ function Form({ setResult }) {
   const [textInput, setTextInput] = useState("");
   const [selectOption, setSelectOption] = useState("");
 
+  function handleError(text, option) {
+    let isValid = true;
+
+    for (let num of text) {
+      if (isNaN(num)) {
+        isValid = false;
+      }
+    }
+
+    if (!option) {
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
   function handleTextChange(event) {
     setTextInput(event.target.value);
     //console.log(event.target.value);
@@ -25,37 +41,43 @@ function Form({ setResult }) {
     let average = 0;
     // a starting point for the operations
 
-    if (selectOption === "sum") {
-      for (let val of numbers) {
-        sum += val;
-      }
-      setResult(sum);
-    } else if (selectOption === "average") {
-      for (let val of numbers) {
-        sum += val;
-        average = sum / numbers.length;
-      }
-      setResult(average);
-    } else if (selectOption === "mode") {
-      const mode = {};
-      let max = 0;
-      let count = 0;
+    const isValid = handleError(numbers, selectOption);
 
-      for (let i = 0; i < numbers.length; i++) {
-        const item = numbers[i];
-
-        if (mode[item]) {
-          mode[item]++;
-        } else {
-          mode[item] = 1;
+    if (isValid) {
+      if (selectOption === "sum") {
+        for (let val of numbers) {
+          sum += val;
         }
-
-        if (count < mode[item]) {
-          max = item;
-          count = mode[item];
+        setResult(sum);
+      } else if (selectOption === "average") {
+        for (let val of numbers) {
+          sum += val;
+          average = sum / numbers.length;
         }
+        setResult(average);
+      } else if (selectOption === "mode") {
+        const mode = {};
+        let max = 0;
+        let count = 0;
+
+        for (let i = 0; i < numbers.length; i++) {
+          const item = numbers[i];
+
+          if (mode[item]) {
+            mode[item]++;
+          } else {
+            mode[item] = 1;
+          }
+
+          if (count < mode[item]) {
+            max = item;
+            count = mode[item];
+          }
+        }
+        setResult(max);
       }
-      setResult(max);
+    } else {
+      setResult("Invalid input.");
     }
   }
 
